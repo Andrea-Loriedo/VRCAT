@@ -14,7 +14,7 @@ public class PlayAreaPositioner : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        UpdateHeight(PlayerPrefs.GetFloat(prefKey, 1.0f));
+        UpdateHeight(PlayerPrefs.GetFloat(prefKey, 0.6f));
     }
 
     // Update is called once per frame
@@ -26,13 +26,13 @@ public class PlayAreaPositioner : MonoBehaviour
 
     public void Increase()
     {
-        float newValue = PlayerPrefs.GetFloat(prefKey, 1.0f) + increment;
+        float newValue = PlayerPrefs.GetFloat(prefKey, 0.6f) + increment;
         UpdateHeight(newValue);
     }
 
     public void Decrease()
     {
-        float newValue = PlayerPrefs.GetFloat(prefKey, 1.0f) - increment;
+        float newValue = PlayerPrefs.GetFloat(prefKey, 0.6f) - increment;
         UpdateHeight(newValue);
     }
 
