@@ -5,7 +5,7 @@ using UXF;
 
 namespace Valve.VR.InteractionSystem.Sample
 {
-    public class ExperimentManager : MonoBehaviour
+    public class TrackingExperimentManager : MonoBehaviour
     {
         // UXF
         public Session session;
@@ -13,6 +13,11 @@ namespace Valve.VR.InteractionSystem.Sample
         // public ParticipantDetails ppDetails;
         bool sessionHasEnded;
         bool newBlockStart;
+
+        // Use this for initialization
+        void Start () {
+            gameObject.SetActive(true);
+        }
 
         public void StartNextTrial()
         {
