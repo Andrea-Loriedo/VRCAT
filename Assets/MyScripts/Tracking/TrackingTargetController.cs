@@ -7,7 +7,7 @@ using System;
 public class TrackingTargetController : MonoBehaviour
 {
 
-    Collider sphereCollider; //
+    Collider sphereCollider;
     MeshRenderer sphereRenderer;
 
     Color baseColor;
@@ -15,6 +15,7 @@ public class TrackingTargetController : MonoBehaviour
     public Color goColor;
     public LineRenderer lineRenderer;
     public GameObject trajectory;
+    private ParticleSystem orb;
 
     public float lineResolution = 0.01f;
 
@@ -30,21 +31,28 @@ public class TrackingTargetController : MonoBehaviour
     {
         sphereCollider = GetComponent<Collider>();
         sphereRenderer = GetComponent<MeshRenderer>();
+        orb = GetComponentInChildren<ParticleSystem>();
         baseColor = sphereRenderer.material.color;
     }
 
     private void OnTriggerEnter(Collider other)
     {
         StartCoroutine(MoveAfterDelay(session.nextTrial.block));
+        orb.startColor = new Color(25, 70, 100, 30); // Turn green
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        orb.startColor = new Color(25, 40, 100, 30); // Turn red
     }
 
 
     IEnumerator MoveAfterDelay(Block block)
     {
         sphereCollider.enabled = false;
-        sphereRenderer.material.color = waitColor;
+        // sphereRenderer.material.color = waitColor;
         yield return new WaitForSeconds(1f);
-        sphereRenderer.material.color = goColor;
+        // sphereRenderer.material.color = goColor;
 
         foreach (Trial trial in session.trials)
         { 
