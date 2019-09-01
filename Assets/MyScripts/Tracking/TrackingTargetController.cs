@@ -38,12 +38,12 @@ public class TrackingTargetController : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         StartCoroutine(MoveAfterDelay(session.nextTrial.block));
-        orb.startColor = new Color(25, 70, 100, 30); // Turn green
     }
 
     private void OnTriggerExit(Collider other)
     {
-        orb.startColor = new Color(25, 40, 100, 30); // Turn red
+        Debug.LogFormat("Target red \n");
+        orb.startColor = new Color(255, 0, 5, 255); // Turn red
     }
 
 
@@ -53,6 +53,7 @@ public class TrackingTargetController : MonoBehaviour
         // sphereRenderer.material.color = waitColor;
         yield return new WaitForSeconds(1f);
         // sphereRenderer.material.color = goColor;
+        orb.startColor = new Color(3, 255, 0, 255); // Turn green
 
         foreach (Trial trial in session.trials)
         { 
