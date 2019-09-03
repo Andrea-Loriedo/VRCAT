@@ -40,12 +40,14 @@ public class SphereController : MonoBehaviour
     {
         sphereCollider.enabled = false;
         sphereMesh.enabled = false;
+        TurnOff();
     }
 
     public void Resume()
     {
         sphereCollider.enabled = true;
         sphereMesh.enabled = true;
+        TurnOn();
     }
 
 
