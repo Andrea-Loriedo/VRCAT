@@ -15,7 +15,11 @@ public class TrackingTargetController : MonoBehaviour
     public Color goColor;
     public LineRenderer lineRenderer;
     public GameObject trajectory;
-    private ParticleSystem orb;
+    //private ParticleSystem orb;
+    ParticleSystem electricBeam;
+    ParticleSystem circle;
+    ParticleSystem particles;
+    ParticleSystem smoke;
 
     public float lineResolution = 0.01f;
 
@@ -27,12 +31,20 @@ public class TrackingTargetController : MonoBehaviour
     //UXF
     public Session session;
 
+    // [HideInInspector]
+    // public Orb orb;
+
     void Awake()
     {
         sphereCollider = GetComponent<Collider>();
         sphereRenderer = GetComponent<MeshRenderer>();
-        orb = GetComponentInChildren<ParticleSystem>();
+        // orb = GetComponentInChildren<ParticleSystem>();
         baseColor = sphereRenderer.material.color;
+
+        electricBeam = GameObject.Find("ElectricBeam").GetComponentInChildren<ParticleSystem>();
+        circle = GameObject.Find("Circle").GetComponentInChildren<ParticleSystem>();
+        particles = GameObject.Find("Particles").GetComponentInChildren<ParticleSystem>();
+        smoke = GameObject.Find("Smoke").GetComponentInChildren<ParticleSystem>();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -43,7 +55,7 @@ public class TrackingTargetController : MonoBehaviour
     private void OnTriggerExit(Collider other)
     {
         Debug.LogFormat("Target red \n");
-        orb.startColor = new Color(255, 0, 5, 255); // Turn red
+        // orb.startColor = new Color(255, 0, 5, 255); // Turn red
     }
 
 
@@ -53,7 +65,8 @@ public class TrackingTargetController : MonoBehaviour
         // sphereRenderer.material.color = waitColor;
         yield return new WaitForSeconds(1f);
         // sphereRenderer.material.color = goColor;
-        orb.startColor = new Color(3, 255, 0, 255); // Turn green
+        // orb.startColor = new Color(3, 255, 0, 255); // Turn green
+        ChangeTargetColour();
 
         foreach (Trial trial in session.trials)
         { 
@@ -188,7 +201,6 @@ public class TrackingTargetController : MonoBehaviour
         }
     }
 
-    
     public void EndBehaviour(Trial endedTrial)
     {
         if (endedTrial == session.lastTrial)
@@ -196,6 +208,22 @@ public class TrackingTargetController : MonoBehaviour
             session.End();
         }
     }
+
+    void ChangeTargetColour()
+    {
+        electricBeam.startColor = new Color(3, 255, 0, 255);
+        particles.startColor =  new Color(3, 255, 0, 255);
+        circle.startColor =  new Color(3, 255, 0, 255);
+        smoke.startColor =  new Color(3, 255, 0, 255);
+    }
+
+    // public struct Orb
+    // {
+    //     public ParticleSystem electricBeam;
+    //     public ParticleSystem particles;
+    //     public ParticleSystem circle;
+    //     public ParticleSystem smoke;
+    // }
 }
 
 /// <summary>
