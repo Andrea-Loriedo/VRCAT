@@ -15,11 +15,8 @@ public class TrackingTargetController : MonoBehaviour
     public Color goColor;
     public LineRenderer lineRenderer;
     public GameObject trajectory;
-    //private ParticleSystem orb;
-    ParticleSystem electricBeam;
-    ParticleSystem circle;
-    ParticleSystem particles;
-    ParticleSystem smoke;
+     
+    ParticleSystem[] orb;
 
     public float lineResolution = 0.01f;
 
@@ -27,6 +24,7 @@ public class TrackingTargetController : MonoBehaviour
     static float PIovertwo = Mathf.PI / 2f;
 
     bool trajectory3D = false;
+    bool taskStarted = false;
 
     //UXF
     public Session session;
@@ -38,35 +36,30 @@ public class TrackingTargetController : MonoBehaviour
     {
         sphereCollider = GetComponent<Collider>();
         sphereRenderer = GetComponent<MeshRenderer>();
-        // orb = GetComponentInChildren<ParticleSystem>();
         baseColor = sphereRenderer.material.color;
-
-        electricBeam = GameObject.Find("ElectricBeam").GetComponentInChildren<ParticleSystem>();
-        circle = GameObject.Find("Circle").GetComponentInChildren<ParticleSystem>();
-        particles = GameObject.Find("Particles").GetComponentInChildren<ParticleSystem>();
-        smoke = GameObject.Find("Smoke").GetComponentInChildren<ParticleSystem>();
+        orb = GetComponentsInChildren<ParticleSystem>();
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        StartCoroutine(MoveAfterDelay(session.nextTrial.block));
+        if(!taskStarted)
+        {
+            StartCoroutine(MoveAfterDelay(session.nextTrial.block));
+        }
+        
+        ChangeTargetColour("green");
     }
 
     private void OnTriggerExit(Collider other)
     {
-        Debug.LogFormat("Target red \n");
-        // orb.startColor = new Color(255, 0, 5, 255); // Turn red
+        ChangeTargetColour("red");
     }
-
 
     IEnumerator MoveAfterDelay(Block block)
     {
-        sphereCollider.enabled = false;
-        // sphereRenderer.material.color = waitColor;
+        // sphereCollider.enabled = false;
+        taskStarted = true;
         yield return new WaitForSeconds(1f);
-        // sphereRenderer.material.color = goColor;
-        // orb.startColor = new Color(3, 255, 0, 255); // Turn green
-        ChangeTargetColour();
 
         foreach (Trial trial in session.trials)
         { 
@@ -149,7 +142,7 @@ public class TrackingTargetController : MonoBehaviour
 
         sphereRenderer.enabled = true;
         sphereRenderer.material.color = baseColor;
-        sphereCollider.enabled = true;
+        // sphereCollider.enabled = true;
     }
 
     Vector3 CalculateCoordinates(TrajectoryInput ti, float t)
@@ -209,21 +202,23 @@ public class TrackingTargetController : MonoBehaviour
         }
     }
 
-    void ChangeTargetColour()
+    void ChangeTargetColour(string colour)
     {
-        electricBeam.startColor = new Color(3, 255, 0, 255);
-        particles.startColor =  new Color(3, 255, 0, 255);
-        circle.startColor =  new Color(3, 255, 0, 255);
-        smoke.startColor =  new Color(3, 255, 0, 255);
-    }
+        switch(colour)
+        {
+            case "red":
+                foreach (ParticleSystem ps in orb) {
+                    ps.startColor = new Color(255, 0, 5, 255);;
+                }
+                break;
 
-    // public struct Orb
-    // {
-    //     public ParticleSystem electricBeam;
-    //     public ParticleSystem particles;
-    //     public ParticleSystem circle;
-    //     public ParticleSystem smoke;
-    // }
+            case "green":
+                foreach (ParticleSystem ps in orb) {
+                    ps.startColor = new Color(3, 255, 0, 255);
+                }
+                break;
+        }
+    }
 }
 
 /// <summary>
@@ -233,3 +228,4 @@ struct TrajectoryInput
 {
     public float A, B, C, q, p, r;
 }
+

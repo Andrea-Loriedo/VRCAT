@@ -5342,7 +5342,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   session: {fileID: 931648258}
-  speed: 2
+  speed: 1
 --- !u!1 &728830539
 GameObject:
   m_ObjectHideFlags: 0
