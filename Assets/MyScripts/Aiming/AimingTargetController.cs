@@ -6,31 +6,28 @@ using UnityEngine.Events;
 
 // [RequireComponent(typeof(AudioSource))]
 
-public class SphereController : MonoBehaviour
+public class AimingTargetController : MonoBehaviour
 {
     // AudioSource audioData;
+
+    // Objects
     Collider sphereCollider;
     MeshRenderer sphereMesh;
-
-    private ParticleSystem orb;
+    ParticleSystem orb;
 
     // Coroutines
     IEnumerator waitThenMoveRoutine;
 
-    // Materials
-    // public Material greenGlass;
-    // public Material darkerGlass;
-
     //UXF
     public Session session;
 
-    public float speed = 1f; //sphere speed in units per second, can be set from the inspector view
+    [SerializeField] float speed = 1f; // sphere speed in units per second, can be set from the inspector view
 
     private void Awake()
     {
+        // audioData = GetComponent<AudioSource>();
         sphereCollider = GetComponent<SphereCollider>();
         sphereMesh = GetComponent<MeshRenderer>();
-        // audioData = GetComponent<AudioSource>();
         gameObject.SetActive(true);
         orb = GetComponentInChildren<ParticleSystem>();
         Pause();

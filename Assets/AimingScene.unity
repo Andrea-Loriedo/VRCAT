@@ -10105,8 +10105,8 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-  darkerGlass: {fileID: 2100000, guid: 332ef16a6386e6e4d967ddba3940b685, type: 2}
-  glass: {fileID: 2100000, guid: b059fb9dfb306814fb881bc6ac472fcf, type: 2}
+  ready: {fileID: 2100000, guid: b059fb9dfb306814fb881bc6ac472fcf, type: 2}
+  go: {fileID: 2100000, guid: b5c0528332757734fb7521207a16c9a4, type: 2}
 --- !u!135 &809073522
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -25341,8 +25341,8 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-  darkerGlass: {fileID: 2100000, guid: a73f254264abd2040900a188a918849a, type: 2}
-  glass: {fileID: 2100000, guid: 332ef16a6386e6e4d967ddba3940b685, type: 2}
+  ready: {fileID: 0}
+  go: {fileID: 0}
 --- !u!65 &1237218961
 BoxCollider:
   m_ObjectHideFlags: 0
