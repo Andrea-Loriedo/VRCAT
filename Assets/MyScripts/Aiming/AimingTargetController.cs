@@ -16,7 +16,7 @@ public class AimingTargetController : MonoBehaviour
     ParticleSystem orb;
 
     // Coroutines
-    IEnumerator waitThenMoveRoutine;
+    IEnumerator MoveTargetRoutine;
 
     //UXF
     public Session session;
@@ -28,30 +28,13 @@ public class AimingTargetController : MonoBehaviour
         // audioData = GetComponent<AudioSource>();
         sphereCollider = GetComponent<SphereCollider>();
         sphereMesh = GetComponent<MeshRenderer>();
-        gameObject.SetActive(true);
         orb = GetComponentInChildren<ParticleSystem>();
-        Pause();
-    }
-
-    public void Pause()
-    {
-        sphereCollider.enabled = false;
-        sphereMesh.enabled = false;
         TurnOff();
     }
-
-    public void Resume()
-    {
-        sphereCollider.enabled = true;
-        sphereMesh.enabled = true;
-        TurnOn();
-    }
-
 
     public void TurnOn()
     {
         gameObject.SetActive(true);
-        sphereCollider.enabled = true;
     }
 
     public void TurnOff()
@@ -61,54 +44,42 @@ public class AimingTargetController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.LogFormat("Trigger enter");
-        // Debug.LogFormat("Sphere hit by {0}", other.name);
-        waitThenMoveRoutine = WaitThenMove(0.5f);
-        StartCoroutine(waitThenMoveRoutine);
+        MoveTargetRoutine = MoveTarget(0.5f); // move the target after triggering it for over 0.5 seconds
+        StartCoroutine(MoveTargetRoutine);
         // audioData.Play(0);
     }
 
     private void OnTriggerExit(Collider other)
     {
-        Debug.LogFormat("Trigger exit");
-        StopCoroutine(waitThenMoveRoutine);
-        // sphereMesh.material = darkerGlass;
-        orb.startColor = new Color(255, 0, 5, 255);
+        StopCoroutine(MoveTargetRoutine);
     }
 
-
-    IEnumerator WaitThenMove(float delayTime)
+    IEnumerator MoveTarget(float delayTime)
     {
-        // sphereMesh.material = greenGlass;
-        orb.startColor = new Color(3, 255, 0, 255);
-        yield return new WaitForSeconds(delayTime);
-        // sphereMesh.material = darkerGlass;
-        orb.startColor = new Color(255, 0, 5, 255);
+        yield return new WaitForSeconds(delayTime); // wait for the input delay before moving the target
 
         // before first trial
         if (session.currentTrialNum == 0)
         {
-            // manually move to the first trial location
-            MoveToNextTrialLocation();
+            // manually move to the first trial start point
+            MoveToNextPoint();
         }
         else if (session.currentTrial == session.lastTrial)
         {
-            Debug.Log("End current trial: Last in session");
             session.EndCurrentTrial();
         }
         else if (session.nextTrial.numberInBlock == 1 && !session.inTrial)
         {
-            MoveToNextTrialLocation();
+            MoveToNextPoint();
         }
         else
         {
-            Debug.Log("End current trial");
             session.EndCurrentTrial();
         }
     }
 
 
-    IEnumerator MoveTowardsLocation(Vector3 destination)
+    IEnumerator MoveToNextPosition(Vector3 nextPosition)
     {
         // disable collider so that sphere can't be hit while moving
         sphereCollider.enabled = false;
@@ -118,13 +89,13 @@ public class AimingTargetController : MonoBehaviour
         Debug.LogFormat("Starting trial: {0}", session.currentTrialNum);
 
         Vector3 currPos = transform.localPosition;
-        Vector3 diff = destination - currPos;
+        Vector3 diff = nextPosition - currPos;
 
         while (diff.magnitude > 0.001)
         {
-            transform.localPosition = Vector3.MoveTowards(currPos, destination, speed * Time.deltaTime);
+            transform.localPosition = Vector3.MoveTowards(currPos, nextPosition, speed * Time.deltaTime);
             currPos = transform.localPosition;
-            diff = destination - currPos;
+            diff = nextPosition - currPos;
             // Debug.LogFormat("New position = {0}. Diff is {1}", currPos, diff.magnitude);
             yield return null; // continue running next frame
         }
@@ -141,25 +112,25 @@ public class AimingTargetController : MonoBehaviour
         }
         else if (session.nextTrial.numberInBlock == 1)
         {
-            Debug.LogFormat("Move to starting point (SCTRL)");
-            MoveToStartingPoint();
+            TurnOff();
+            MoveToStartPosition();
         }
         else
         {
-            MoveToNextTrialLocation();
+            MoveToNextPoint();
         }
     }
 
-    void MoveToNextTrialLocation()
+    void MoveToNextPoint()
     {
         float x = (float)session.nextTrial.settings["target_x"];
         float y = (float)session.nextTrial.settings["target_y"];
         float z = (float)session.nextTrial.settings["target_z"];
         
-        StartCoroutine(MoveTowardsLocation(new Vector3(x, y, z)));
+        StartCoroutine(MoveToNextPosition(new Vector3(x, y, z)));
     }
 
-    public void MoveToStartingPoint()
+    public void MoveToStartPosition()
     {
         float x = (float)session.nextTrial.block.settings["start_x"];
         float y = (float)session.nextTrial.block.settings["start_y"];
