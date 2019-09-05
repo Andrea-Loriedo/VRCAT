@@ -4,28 +4,24 @@ using UnityEngine;
 using UXF;
 using UnityEngine.Events;
 
-// [RequireComponent(typeof(AudioSource))]
-
 public class AimingTargetController : MonoBehaviour
 {
-    // AudioSource audioData;
-
     // Objects
     Collider sphereCollider;
     MeshRenderer sphereMesh;
     ParticleSystem orb;
 
     // Coroutines
-    IEnumerator MoveTargetRoutine;
+    IEnumerator TargetEnterRoutine;
 
     //UXF
     public Session session;
 
-    [SerializeField] float speed = 1f; // sphere speed in units per second, can be set from the inspector view
+    // sphere speed in units per second, can be set from the inspector view
+    [SerializeField] float speed = 1f; 
 
     private void Awake()
     {
-        // audioData = GetComponent<AudioSource>();
         sphereCollider = GetComponent<SphereCollider>();
         sphereMesh = GetComponent<MeshRenderer>();
         orb = GetComponentInChildren<ParticleSystem>();
@@ -44,17 +40,38 @@ public class AimingTargetController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        MoveTargetRoutine = MoveTarget(0.5f); // move the target after triggering it for over 0.5 seconds
-        StartCoroutine(MoveTargetRoutine);
-        // audioData.Play(0);
+        TargetEnterRoutine = TargetEnter(0.5f); // move the target after triggering it for over 0.5 seconds
+        StartCoroutine(TargetEnterRoutine);
     }
 
     private void OnTriggerExit(Collider other)
     {
-        StopCoroutine(MoveTargetRoutine);
+        StopCoroutine(TargetEnterRoutine);
     }
 
-    IEnumerator MoveTarget(float delayTime)
+        void MoveToNextPoint()
+    {
+        // fetch the target 3D position for the next trial
+        float x = (float)session.nextTrial.settings["target_x"];
+        float y = (float)session.nextTrial.settings["target_y"];
+        float z = (float)session.nextTrial.settings["target_z"];
+        
+        // move target to the next position
+        StartCoroutine(MoveToNextPosition(new Vector3(x, y, z)));
+    }
+
+    public void MoveToStartPosition()
+    {
+        // fetch the initial position for the current block
+        float x = (float)session.nextTrial.block.settings["start_x"];
+        float y = (float)session.nextTrial.block.settings["start_y"];
+        float z = (float)session.nextTrial.block.settings["start_z"];
+
+        // move target to its initial position
+        transform.localPosition = new Vector3(x, y, z);
+    }
+
+    IEnumerator TargetEnter(float delayTime)
     {
         yield return new WaitForSeconds(delayTime); // wait for the input delay before moving the target
 
@@ -78,7 +95,6 @@ public class AimingTargetController : MonoBehaviour
         }
     }
 
-
     IEnumerator MoveToNextPosition(Vector3 nextPosition)
     {
         // disable collider so that sphere can't be hit while moving
@@ -86,20 +102,19 @@ public class AimingTargetController : MonoBehaviour
 
         // start the next trial
         session.BeginNextTrial();
-        Debug.LogFormat("Starting trial: {0}", session.currentTrialNum);
 
-        Vector3 currPos = transform.localPosition;
-        Vector3 diff = nextPosition - currPos;
+        Vector3 currPos = transform.localPosition; // current target position
+        Vector3 diff = nextPosition - currPos; // 3D distance from the next target position
 
+        // while the target hasn't reached the next position, move towards it in a straight line
         while (diff.magnitude > 0.001)
         {
             transform.localPosition = Vector3.MoveTowards(currPos, nextPosition, speed * Time.deltaTime);
-            currPos = transform.localPosition;
+            currPos = transform.localPosition; // update current target position
             diff = nextPosition - currPos;
-            // Debug.LogFormat("New position = {0}. Diff is {1}", currPos, diff.magnitude);
+
             yield return null; // continue running next frame
         }
-
         // enable collider so that sphere can be hit again
         sphereCollider.enabled = true;
     }
@@ -108,35 +123,18 @@ public class AimingTargetController : MonoBehaviour
     {
         if (endedTrial == session.lastTrial)
         {
+            // end session if the last trial has just ended
             session.End();
         }
         else if (session.nextTrial.numberInBlock == 1)
         {
-            TurnOff();
-            MoveToStartPosition();
+            TurnOff(); // disable the target on trial 0
+            MoveToStartPosition(); // move the target to its relative initial position
         }
         else
         {
-            MoveToNextPoint();
+            MoveToNextPoint(); // move the target to the next trial position
         }
-    }
-
-    void MoveToNextPoint()
-    {
-        float x = (float)session.nextTrial.settings["target_x"];
-        float y = (float)session.nextTrial.settings["target_y"];
-        float z = (float)session.nextTrial.settings["target_z"];
-        
-        StartCoroutine(MoveToNextPosition(new Vector3(x, y, z)));
-    }
-
-    public void MoveToStartPosition()
-    {
-        float x = (float)session.nextTrial.block.settings["start_x"];
-        float y = (float)session.nextTrial.block.settings["start_y"];
-        float z = (float)session.nextTrial.block.settings["start_z"];
-
-        transform.localPosition = new Vector3(x, y, z);
     }
 }
 

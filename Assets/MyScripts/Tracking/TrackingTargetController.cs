@@ -6,37 +6,29 @@ using System;
 
 public class TrackingTargetController : MonoBehaviour
 {
+    [SerializeField] GameObject trajectory;
+    [SerializeField] LineRenderer lineRenderer;
+    [SerializeField] float lineResolution = 0.01f;
 
+    // UXF
+    [SerializeField] Session session;
+    
+    // Objects
     Collider sphereCollider;
     MeshRenderer sphereRenderer;
-
-    Color baseColor;
-    public Color waitColor;
-    public Color goColor;
-    public LineRenderer lineRenderer;
-    public GameObject trajectory;
-     
     ParticleSystem[] orb;
 
-    public float lineResolution = 0.01f;
-
+    // Constants
     static float twoPI = Mathf.PI * 2f;
     static float PIovertwo = Mathf.PI / 2f;
 
     bool trajectory3D = false;
     bool taskStarted = false;
 
-    //UXF
-    public Session session;
-
-    // [HideInInspector]
-    // public Orb orb;
-
     void Awake()
     {
         sphereCollider = GetComponent<Collider>();
         sphereRenderer = GetComponent<MeshRenderer>();
-        baseColor = sphereRenderer.material.color;
         orb = GetComponentsInChildren<ParticleSystem>();
     }
 
@@ -46,7 +38,7 @@ public class TrackingTargetController : MonoBehaviour
         {
             StartCoroutine(MoveAfterDelay(session.nextTrial.block));
         }
-        
+
         ChangeTargetColour("green");
     }
 
@@ -59,63 +51,28 @@ public class TrackingTargetController : MonoBehaviour
     {
         // sphereCollider.enabled = false;
         taskStarted = true;
+
         yield return new WaitForSeconds(1f);
 
         foreach (Trial trial in session.trials)
-        { 
-            float t = 0f;
-
-            float speed = Convert.ToSingle(trial.settings["speed"]);
-            float A = Convert.ToSingle(trial.settings["A"]);
-            float B = Convert.ToSingle(trial.settings["B"]);
-            float C  = Convert.ToSingle(trial.settings["C"]);
-            float q = Convert.ToSingle(trial.settings["q"]);
-            float p = Convert.ToSingle(trial.settings["p"]);
-            float r = Convert.ToSingle(trial.settings["r"]);
-            bool showTrajectory = (bool)trial.settings["show_trajectory"];
-            bool third_dimension = (bool)trial.settings["3D_Mode"];
-
-            TrajectoryInput ti = new TrajectoryInput()
-            {
-                A = A,
-                B = B,
-                C = C,
-                q = q,
-                p = p,
-                r = r
-            };
-
-            if(third_dimension)
-            {
-                trajectory3D = true;
-            }
-            else
-            {
-                trajectory3D = false;
-            }
-
-            if (showTrajectory)
-            {
-                DrawTrajectory(ti);
-            }
-            else
-            {
-                trajectory.SetActive(false);
-            }
+        {
+            ApplyTrialSettings(session, trial);
 
             trial.Begin();
             Debug.LogFormat("Starting trial {0}", session.currentTrialNum);
-
+            
+            float t = 0f;
+            
             while (t < twoPI)
             {  
-                if(third_dimension)
+                if(thirdDimension)
                 {
-                    Vector3 newPos = Coordinates3D(ti, t);
+                    Vector3 newPos = Coordinates3D(input, t);
                     transform.localPosition = newPos;
                 }
                 else
                 {
-                    Vector3 newPos = CalculateCoordinates(ti, t);
+                    Vector3 newPos = CalculateCoordinates(input, t);
                     transform.localPosition = newPos;
                 }
                 t += Time.deltaTime * speed;
@@ -126,43 +83,90 @@ public class TrackingTargetController : MonoBehaviour
 
             Debug.LogFormat("Ended trial {0}", session.currentTrialNum);
 
-            if(third_dimension)
+            if(thirdDimension)
             {
-                transform.localPosition = Coordinates3D(ti, 0f);
+                transform.localPosition = Coordinates3D(input, 0f);
             }
             else
             {
-                transform.localPosition = CalculateCoordinates(ti, 0f);
+                transform.localPosition = CalculateCoordinates(input, 0f);
             }
         }
 
         // turn off line renderer
         sphereRenderer.enabled = false;
         yield return new WaitForSeconds(1f);
-
         sphereRenderer.enabled = true;
-        sphereRenderer.material.color = baseColor;
-        // sphereCollider.enabled = true;
     }
 
-    Vector3 CalculateCoordinates(TrajectoryInput ti, float t)
+    private void ApplyTrialSettings(Session session, Trial trial)
+    {
+        float speed = Convert.ToSingle(trial.settings["speed"]);
+        float A = Convert.ToSingle(trial.settings["A"]);
+        float B = Convert.ToSingle(trial.settings["B"]);
+        float C  = Convert.ToSingle(trial.settings["C"]);
+        float q = Convert.ToSingle(trial.settings["q"]);
+        float p = Convert.ToSingle(trial.settings["p"]);
+        float r = Convert.ToSingle(trial.settings["r"]);
+        bool showTrajectory = (bool)trial.settings["show_trajectory"];
+        bool thirdDimension = (bool)trial.settings["3D_Mode"];
+
+        SessionSettings settings = new SessionSettings()
+        {
+            input = input;
+            showTrajectory = showTrajectory;
+            thirdDimension = thirdDimension;
+        };
+
+        TrajectoryInput input = new TrajectoryInput()
+        {
+            A = A,
+            B = B,
+            C = C,
+            q = q,
+            p = p,
+            r = r
+        };
+
+        if(thirdDimension)
+        {
+            trajectory3D = true;
+        } 
+        
+        else
+        {
+            trajectory3D = false;
+        }
+
+        if (showTrajectory)
+        {
+            DrawTrajectory(input);
+        } 
+        
+        else
+        {
+            trajectory.SetActive(false);
+        }
+    }
+
+    Vector3 CalculateCoordinates(TrajectoryInput input, float t)
     {
         // https://www.desmos.com/calculator/w52gw1ycca
-        float x = ti.A * Mathf.Cos(ti.q * (t + PIovertwo));
-        float y = ti.B * Mathf.Sin(ti.p * (t + PIovertwo));
+        float x = input.A * Mathf.Cos(input.q * (t + PIovertwo));
+        float y = input.B * Mathf.Sin(input.p * (t + PIovertwo));
         return new Vector3(x, y, 0f);
     }
 
-    Vector3 Coordinates3D(TrajectoryInput ti, float t)
+    Vector3 Coordinates3D(TrajectoryInput input, float t)
     {
         // https://www.geogebra.org/3d/bajwcsth
-        float x = ti.A * Mathf.Cos(ti.q * (t + PIovertwo));
-        float y = ti.B * Mathf.Sin(ti.p * (t + PIovertwo));
-        float z = ti.C * Mathf.Sin(ti.r * (t + PIovertwo));
+        float x = input.A * Mathf.Cos(input.q * (t + PIovertwo));
+        float y = input.B * Mathf.Sin(input.p * (t + PIovertwo));
+        float z = input.C * Mathf.Sin(input.r * (t + PIovertwo));
         return new Vector3(x, y, z);
     }
 
-    void DrawTrajectory(TrajectoryInput ti)
+    void DrawTrajectory(TrajectoryInput input)
     {
         // enable line renderer
         trajectory.SetActive(true);
@@ -176,12 +180,12 @@ public class TrackingTargetController : MonoBehaviour
         {
             if(trajectory3D)
             {
-                Vector3 newPos = Coordinates3D(ti, tt);
+                Vector3 newPos = Coordinates3D(input, tt);
                 positions.Add(newPos);
             }
             else
             {
-                Vector3 newPos = CalculateCoordinates(ti, tt);
+                Vector3 newPos = CalculateCoordinates(input, tt);
                 positions.Add(newPos);
             }
         }
@@ -227,5 +231,11 @@ public class TrackingTargetController : MonoBehaviour
 struct TrajectoryInput
 {
     public float A, B, C, q, p, r;
+}
+
+struct SessionSettings
+{
+    public TrajectoryInput input;
+    public bool showTrajectory, thirdDimension;
 }
 
