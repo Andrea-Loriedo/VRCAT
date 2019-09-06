@@ -17,11 +17,13 @@ public class TrackingTargetController : MonoBehaviour
     Collider sphereCollider;
     MeshRenderer sphereRenderer;
     ParticleSystem[] orb;
+    SessionSettings settings;
 
     // Constants
     static float twoPI = Mathf.PI * 2f;
     static float PIovertwo = Mathf.PI / 2f;
 
+    // Booleans
     bool trajectory3D = false;
     bool taskStarted = false;
 
@@ -65,17 +67,17 @@ public class TrackingTargetController : MonoBehaviour
             
             while (t < twoPI)
             {  
-                if(thirdDimension)
+                if(settings.thirdDimension)
                 {
-                    Vector3 newPos = Coordinates3D(input, t);
+                    Vector3 newPos = Coordinates3D(settings.input, t);
                     transform.localPosition = newPos;
                 }
                 else
                 {
-                    Vector3 newPos = CalculateCoordinates(input, t);
+                    Vector3 newPos = CalculateCoordinates(settings.input, t);
                     transform.localPosition = newPos;
                 }
-                t += Time.deltaTime * speed;
+                t += Time.deltaTime * settings.speed;
                 yield return null;
             }
 
@@ -83,13 +85,13 @@ public class TrackingTargetController : MonoBehaviour
 
             Debug.LogFormat("Ended trial {0}", session.currentTrialNum);
 
-            if(thirdDimension)
+            if(settings.thirdDimension)
             {
-                transform.localPosition = Coordinates3D(input, 0f);
+                transform.localPosition = Coordinates3D(settings.input, 0f);
             }
             else
             {
-                transform.localPosition = CalculateCoordinates(input, 0f);
+                transform.localPosition = CalculateCoordinates(settings.input, 0f);
             }
         }
 
@@ -111,13 +113,6 @@ public class TrackingTargetController : MonoBehaviour
         bool showTrajectory = (bool)trial.settings["show_trajectory"];
         bool thirdDimension = (bool)trial.settings["3D_Mode"];
 
-        SessionSettings settings = new SessionSettings()
-        {
-            input = input;
-            showTrajectory = showTrajectory;
-            thirdDimension = thirdDimension;
-        };
-
         TrajectoryInput input = new TrajectoryInput()
         {
             A = A,
@@ -126,6 +121,14 @@ public class TrackingTargetController : MonoBehaviour
             q = q,
             p = p,
             r = r
+        };
+
+        settings = new SessionSettings()
+        {
+            input = input,
+            showTrajectory = showTrajectory,
+            thirdDimension = thirdDimension,
+            speed = speed,
         };
 
         if(thirdDimension)
@@ -237,5 +240,6 @@ struct SessionSettings
 {
     public TrajectoryInput input;
     public bool showTrajectory, thirdDimension;
+    public float speed;
 }
 
