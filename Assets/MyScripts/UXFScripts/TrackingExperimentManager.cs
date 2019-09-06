@@ -8,11 +8,12 @@ namespace Valve.VR.InteractionSystem.Sample
     public class TrackingExperimentManager : MonoBehaviour
     {
         // UXF
-        public Session session;
-        // public BlockSettings settings;  
+        [SerializeField] Session session;
+        [SerializeField] TrackingTargetController target;
         // public ParticipantDetails ppDetails;
         bool sessionHasEnded;
         bool newBlockStart;
+        public BlockSettings settings;
 
         // Use this for initialization
         void Start () {
@@ -22,11 +23,13 @@ namespace Valve.VR.InteractionSystem.Sample
         public void StartNextTrial()
         {
             session.nextTrial.Begin();
-            Debug.LogFormat("Started trial {0}", session.currentTrialNum);
-            // settings.distance = session.currentTrial.settings["distance"].ToString(); // Set shape
+            settings.speed = session.currentTrial.settings["speed"].ToSingle(); 
+            settings.showTrajectory = (bool) session.currentTrial.settings["show_trajectory"];
+
+            foreach()
             // settings.targetMode = session.currentTrial.settings["target_mode"].ToString(); // Set speed
             // Set 3D/2D
-            // options.ApplyBlockSettings(settings);
+            target.ApplyBlockSettings(settings);
         }
 
 //         public void EndCurrentTrial()
@@ -41,10 +44,10 @@ namespace Valve.VR.InteractionSystem.Sample
 //             return ppDetails;
 //         }
 
-//         public BlockSettings GetBlockSettings()
-//         {
-//             return settings;
-//         }
+        public BlockSettings GetBlockSettings()
+        {
+            return settings;
+        }
 
 //         public void RetrieveParticipantDetails()
 //         {
@@ -130,11 +133,18 @@ namespace Valve.VR.InteractionSystem.Sample
 //         }
 
 //         // Structs for session parameters
-//         public struct BlockSettings
-//         {
-//             public string distance;
-//             public string targetMode;
-//         }
+
+        public struct TrajectoryInput
+        {
+            public float  A, B, C, q, p, r;
+        }
+
+        public struct BlockSettings
+        {
+            public TrajectoryInput input;
+            public float speed;
+            public bool showTrajectory, thirdDimension;
+        }
 
 //         public struct ParticipantDetails
 //         {

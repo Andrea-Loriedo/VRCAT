@@ -9,6 +9,7 @@ public class TrackingTargetController : MonoBehaviour
     [SerializeField] GameObject trajectory;
     [SerializeField] LineRenderer lineRenderer;
     [SerializeField] float lineResolution = 0.01f;
+    [SerializeField] TrackingExperimentManager experiment;
 
     // UXF
     [SerializeField] Session session;
@@ -58,9 +59,8 @@ public class TrackingTargetController : MonoBehaviour
 
         foreach (Trial trial in session.trials)
         {
-            ApplyTrialSettings(session, trial);
-
             trial.Begin();
+            experiment.StartNextTrial();
             Debug.LogFormat("Starting trial {0}", session.currentTrialNum);
             
             float t = 0f;
@@ -101,37 +101,9 @@ public class TrackingTargetController : MonoBehaviour
         sphereRenderer.enabled = true;
     }
 
-    private void ApplyTrialSettings(Session session, Trial trial)
+    private void ApplyBlockSettings(ExperimentManager.BlockSettings settings)
     {
-        float speed = Convert.ToSingle(trial.settings["speed"]);
-        float A = Convert.ToSingle(trial.settings["A"]);
-        float B = Convert.ToSingle(trial.settings["B"]);
-        float C  = Convert.ToSingle(trial.settings["C"]);
-        float q = Convert.ToSingle(trial.settings["q"]);
-        float p = Convert.ToSingle(trial.settings["p"]);
-        float r = Convert.ToSingle(trial.settings["r"]);
-        bool showTrajectory = (bool)trial.settings["show_trajectory"];
-        bool thirdDimension = (bool)trial.settings["3D_Mode"];
-
-        TrajectoryInput input = new TrajectoryInput()
-        {
-            A = A,
-            B = B,
-            C = C,
-            q = q,
-            p = p,
-            r = r
-        };
-
-        settings = new SessionSettings()
-        {
-            input = input,
-            showTrajectory = showTrajectory,
-            thirdDimension = thirdDimension,
-            speed = speed,
-        };
-
-        if(thirdDimension)
+        if(settings.thirdDimension)
         {
             trajectory3D = true;
         } 
@@ -141,9 +113,9 @@ public class TrackingTargetController : MonoBehaviour
             trajectory3D = false;
         }
 
-        if (showTrajectory)
+        if (settings.showTrajectory)
         {
-            DrawTrajectory(input);
+            DrawTrajectory(settings.input);
         } 
         
         else
@@ -234,12 +206,5 @@ public class TrackingTargetController : MonoBehaviour
 struct TrajectoryInput
 {
     public float A, B, C, q, p, r;
-}
-
-struct SessionSettings
-{
-    public TrajectoryInput input;
-    public bool showTrajectory, thirdDimension;
-    public float speed;
 }
 
