@@ -3,34 +3,40 @@ using System.Collections.Generic;
 using UnityEngine;
 using UXF;
 
-namespace Valve.VR.InteractionSystem.Sample
+public class TrackingExperimentManager : MonoBehaviour
 {
-    public class TrackingExperimentManager : MonoBehaviour
+    // UXF
+    [SerializeField] Session session;
+    [SerializeField] TrackingTargetController target;
+    // public ParticipantDetails ppDetails;
+    bool sessionHasEnded;
+    bool newBlockStart;
+
+    [HideInInspector]
+    public BlockSettings settings;
+    [HideInInspector]
+    public TrajectoryInput trajectory;
+
+    // Use this for initialization
+    void Start () {
+        gameObject.SetActive(true);
+    }
+
+    public void StartNextTrial()
     {
-        // UXF
-        [SerializeField] Session session;
-        [SerializeField] TrackingTargetController target;
-        // public ParticipantDetails ppDetails;
-        bool sessionHasEnded;
-        bool newBlockStart;
-        public BlockSettings settings;
-
-        // Use this for initialization
-        void Start () {
-            gameObject.SetActive(true);
-        }
-
-        public void StartNextTrial()
-        {
-            session.nextTrial.Begin();
-            settings.speed = session.currentTrial.settings["speed"].ToSingle(); 
-            settings.showTrajectory = (bool) session.currentTrial.settings["show_trajectory"];
-
-            foreach()
-            // settings.targetMode = session.currentTrial.settings["target_mode"].ToString(); // Set speed
-            // Set 3D/2D
-            target.ApplyBlockSettings(settings);
-        }
+        session.nextTrial.Begin();
+        settings.speed = session.currentTrial.settings["speed"].ToSingle(); 
+        settings.showTrajectory = (bool) session.currentTrial.settings["show_trajectory"];
+        trajectory.A = session.currentTrial.settings["A"].ToSingle(); 
+        trajectory.B = session.currentTrial.settings["B"].ToSingle(); 
+        trajectory.C = session.currentTrial.settings["C"].ToSingle(); 
+        trajectory.q = session.currentTrial.settings["q"].ToSingle(); 
+        trajectory.p = session.currentTrial.settings["p"].ToSingle(); 
+        trajectory.r = session.currentTrial.settings["r"].ToSingle(); 
+        // settings.targetMode = session.currentTrial.settings["target_mode"].ToString(); // Set speed
+        // Set 3D/2D
+        target.ApplyBlockSettings(settings);
+    }
 
 //         public void EndCurrentTrial()
 //         {
@@ -44,10 +50,10 @@ namespace Valve.VR.InteractionSystem.Sample
 //             return ppDetails;
 //         }
 
-        public BlockSettings GetBlockSettings()
-        {
-            return settings;
-        }
+    public BlockSettings GetBlockSettings()
+    {
+        return settings;
+    }
 
 //         public void RetrieveParticipantDetails()
 //         {
@@ -134,17 +140,16 @@ namespace Valve.VR.InteractionSystem.Sample
 
 //         // Structs for session parameters
 
-        public struct TrajectoryInput
-        {
-            public float  A, B, C, q, p, r;
-        }
+    public struct TrajectoryInput
+    {
+        public float  A, B, C, q, p, r;
+    }
 
-        public struct BlockSettings
-        {
-            public TrajectoryInput input;
-            public float speed;
-            public bool showTrajectory, thirdDimension;
-        }
+    public struct BlockSettings
+    {
+        public float speed;
+        public bool showTrajectory, thirdDimension;
+    }
 
 //         public struct ParticipantDetails
 //         {
@@ -156,5 +161,4 @@ namespace Valve.VR.InteractionSystem.Sample
 //             public float lowerArmLength;
 //             public float upperArmLength;
 //         }
-    }
 }

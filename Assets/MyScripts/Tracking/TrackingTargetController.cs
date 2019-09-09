@@ -18,7 +18,6 @@ public class TrackingTargetController : MonoBehaviour
     Collider sphereCollider;
     MeshRenderer sphereRenderer;
     ParticleSystem[] orb;
-    SessionSettings settings;
 
     // Constants
     static float twoPI = Mathf.PI * 2f;
@@ -67,17 +66,17 @@ public class TrackingTargetController : MonoBehaviour
             
             while (t < twoPI)
             {  
-                if(settings.thirdDimension)
+                if(experiment.settings.thirdDimension)
                 {
-                    Vector3 newPos = Coordinates3D(settings.input, t);
+                    Vector3 newPos = Coordinates3D(experiment.settings.trajectory, t);
                     transform.localPosition = newPos;
                 }
                 else
                 {
-                    Vector3 newPos = CalculateCoordinates(settings.input, t);
+                    Vector3 newPos = CalculateCoordinates(experiment.settings.trajectory, t);
                     transform.localPosition = newPos;
                 }
-                t += Time.deltaTime * settings.speed;
+                t += Time.deltaTime * experiment.settings.speed;
                 yield return null;
             }
 
@@ -85,13 +84,13 @@ public class TrackingTargetController : MonoBehaviour
 
             Debug.LogFormat("Ended trial {0}", session.currentTrialNum);
 
-            if(settings.thirdDimension)
+            if(experiment.settings.thirdDimension)
             {
-                transform.localPosition = Coordinates3D(settings.input, 0f);
+                transform.localPosition = Coordinates3D(experiment.settings.trajectory, 0f);
             }
             else
             {
-                transform.localPosition = CalculateCoordinates(settings.input, 0f);
+                transform.localPosition = CalculateCoordinates(experiment.settings.trajectory, 0f);
             }
         }
 
@@ -101,7 +100,7 @@ public class TrackingTargetController : MonoBehaviour
         sphereRenderer.enabled = true;
     }
 
-    private void ApplyBlockSettings(ExperimentManager.BlockSettings settings)
+    public void ApplyBlockSettings(TrackingExperimentManager.BlockSettings settings)
     {
         if(settings.thirdDimension)
         {
