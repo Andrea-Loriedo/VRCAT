@@ -496,7 +496,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   session: {fileID: 931648258}
-  target: {fileID: 575930045}
+  trajectory: {fileID: 1396475283}
 --- !u!114 &393784332
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -641,9 +641,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe2106090b5f97d4cbfae8b62f5762cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  trajectory: {fileID: 1396475280}
-  lineRenderer: {fileID: 1396475282}
-  lineResolution: 0.01
+  trajectory: {fileID: 1396475283}
   experiment: {fileID: 393784331}
   session: {fileID: 931648258}
 --- !u!1 &855548807
@@ -20312,6 +20310,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1396475281}
   - component: {fileID: 1396475282}
+  - component: {fileID: 1396475283}
   m_Layer: 0
   m_Name: TargetTrajectory
   m_TagString: Untagged
@@ -20426,6 +20425,20 @@ LineRenderer:
     generateLightingData: 0
   m_UseWorldSpace: 0
   m_Loop: 0
+--- !u!114 &1396475283
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1396475280}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 34e0c42a6de78664a8282f9486d515ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  experiment: {fileID: 393784331}
+  lineResolution: 0.01
 --- !u!4 &1754892682 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400002, guid: 126d619cf4daa52469682f85c1378b4a,

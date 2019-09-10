@@ -6,9 +6,9 @@ using System;
 
 public class TrackingTargetController : MonoBehaviour
 {
-    [SerializeField] GameObject trajectory;
-    [SerializeField] LineRenderer lineRenderer;
-    [SerializeField] float lineResolution = 0.01f;
+    [SerializeField] TrajectoryController trajectory;
+
+    // Experiment management
     [SerializeField] TrackingExperimentManager experiment;
 
     // UXF
@@ -24,8 +24,8 @@ public class TrackingTargetController : MonoBehaviour
     static float PIovertwo = Mathf.PI / 2f;
 
     // Booleans
-    bool trajectory3D = false;
     bool taskStarted = false;
+
 
     void Awake()
     {
@@ -51,135 +51,38 @@ public class TrackingTargetController : MonoBehaviour
 
     IEnumerator MoveAfterDelay(Block block)
     {
-        // sphereCollider.enabled = false;
         taskStarted = true;
 
         yield return new WaitForSeconds(1f);
 
         foreach (Trial trial in session.trials)
         {
-            trial.Begin();
             experiment.StartNextTrial();
-            Debug.LogFormat("Starting trial {0}", session.currentTrialNum);
             
             float t = 0f;
             
-            while (t < twoPI)
+            while (t < twoPI) 
             {  
                 if(experiment.settings.thirdDimension)
                 {
-                    Vector3 newPos = Coordinates3D(experiment.trajectory, t);
+                    Vector3 newPos = trajectory.Coordinates3D(experiment.settings.input, t);
                     transform.localPosition = newPos;
                 }
                 else
                 {
-                    Vector3 newPos = CalculateCoordinates(experiment.trajectory, t);
+                    Vector3 newPos = trajectory.Coordinates2D(experiment.settings.input, t);
                     transform.localPosition = newPos;
                 }
+
                 t += Time.deltaTime * experiment.settings.speed;
                 yield return null;
             }
 
             trial.End();
-
-            Debug.LogFormat("Ended trial {0}", session.currentTrialNum);
-
-            if(experiment.settings.thirdDimension)
-            {
-                transform.localPosition = Coordinates3D(experiment.trajectory, 0f);
-            }
-            else
-            {
-                transform.localPosition = CalculateCoordinates(experiment.trajectory, 0f);
-            }
-        }
-
-        // turn off line renderer
-        sphereRenderer.enabled = false;
-        yield return new WaitForSeconds(1f);
-        sphereRenderer.enabled = true;
-    }
-
-    public void ApplyBlockSettings(TrackingExperimentManager.BlockSettings settings)
-    {
-        if(settings.thirdDimension)
-        {
-            trajectory3D = true;
-        } 
-        
-        else
-        {
-            trajectory3D = false;
-        }
-
-        if (settings.showTrajectory)
-        {
-            DrawTrajectory(experiment.trajectory);
-        } 
-        
-        else
-        {
-            trajectory.SetActive(false);
+            ResetTargetPosition(0f);
         }
     }
-
-    Vector3 CalculateCoordinates(TrackingExperimentManager.TrajectoryInput input, float t)
-    {
-        // https://www.desmos.com/calculator/w52gw1ycca
-        float x = input.A * Mathf.Cos(input.q * (t + PIovertwo));
-        float y = input.B * Mathf.Sin(input.p * (t + PIovertwo));
-        return new Vector3(x, y, 0f);
-    }
-
-    Vector3 Coordinates3D(TrackingExperimentManager.TrajectoryInput input, float t)
-    {
-        // https://www.geogebra.org/3d/bajwcsth
-        float x = input.A * Mathf.Cos(input.q * (t + PIovertwo));
-        float y = input.B * Mathf.Sin(input.p * (t + PIovertwo));
-        float z = input.C * Mathf.Sin(input.r * (t + PIovertwo));
-        return new Vector3(x, y, z);
-    }
-
-    void DrawTrajectory(TrackingExperimentManager.TrajectoryInput input)
-    {
-        // enable line renderer
-        trajectory.SetActive(true);
-
-        List<Vector3> positions = new List<Vector3>();
-        positions.Capacity = Mathf.CeilToInt(twoPI / lineResolution);
-
-        lineRenderer.positionCount = positions.Capacity;
-
-        for (float tt = 0; tt < twoPI; tt += lineResolution)
-        {
-            if(trajectory3D)
-            {
-                Vector3 newPos = Coordinates3D(input, tt);
-                positions.Add(newPos);
-            }
-            else
-            {
-                Vector3 newPos = CalculateCoordinates(input, tt);
-                positions.Add(newPos);
-            }
-        }
-        // set line renderer positions 
-        for (int i = 0; i < positions.Capacity; i++)
-        {
-            Vector3 pos = (positions[i]);
-            Vector3 traj = pos;
-            lineRenderer.SetPosition(i, traj);
-        }
-    }
-
-    public void EndBehaviour(Trial endedTrial)
-    {
-        if (endedTrial == session.lastTrial)
-        {
-            session.End();
-        }
-    }
-
+ 
     void ChangeTargetColour(string colour)
     {
         switch(colour)
@@ -197,13 +100,26 @@ public class TrackingTargetController : MonoBehaviour
                 break;
         }
     }
+
+    void ResetTargetPosition(float position)
+    {
+        if(experiment.settings.thirdDimension)
+        {
+            transform.localPosition = trajectory.Coordinates3D(experiment.settings.input, position);
+        }
+        else
+        {
+            transform.localPosition = trajectory.Coordinates2D(experiment.settings.input, position);
+        }
+    }
+
+    public void EndBehaviour(Trial endedTrial)
+    {
+        if (endedTrial == session.lastTrial)
+        {
+            session.End();
+        }
+    }
 }
 
-/// <summary>
-/// A, B and C control the amplitude of the trajectory - q, p and r control its complexity
-/// </summary>
-struct TrajectoryInput
-{
-    public float A, B, C, q, p, r;
-}
 
