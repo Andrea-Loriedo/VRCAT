@@ -25,16 +25,14 @@ public class TrackingExperimentManager : MonoBehaviour
     public void StartNextTrial()
     {
         session.nextTrial.Begin();
-        settings.speed = session.currentTrial.settings["speed"].ToSingle(); 
+        settings.speed = (float) session.currentTrial.settings["speed"]; 
         settings.showTrajectory = (bool) session.currentTrial.settings["show_trajectory"];
-        trajectory.A = session.currentTrial.settings["A"].ToSingle(); 
-        trajectory.B = session.currentTrial.settings["B"].ToSingle(); 
-        trajectory.C = session.currentTrial.settings["C"].ToSingle(); 
-        trajectory.q = session.currentTrial.settings["q"].ToSingle(); 
-        trajectory.p = session.currentTrial.settings["p"].ToSingle(); 
-        trajectory.r = session.currentTrial.settings["r"].ToSingle(); 
-        // settings.targetMode = session.currentTrial.settings["target_mode"].ToString(); // Set speed
-        // Set 3D/2D
+        trajectory.A = (float) session.currentTrial.settings["A"]; 
+        trajectory.B = (float) session.currentTrial.settings["B"]; 
+        trajectory.C = (float) session.currentTrial.settings["C"]; 
+        trajectory.q = (float) session.currentTrial.settings["q"]; 
+        trajectory.p = (float) session.currentTrial.settings["p"]; 
+        trajectory.r = (float) session.currentTrial.settings["r"]; 
         target.ApplyBlockSettings(settings);
     }
 

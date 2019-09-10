@@ -68,12 +68,12 @@ public class TrackingTargetController : MonoBehaviour
             {  
                 if(experiment.settings.thirdDimension)
                 {
-                    Vector3 newPos = Coordinates3D(experiment.settings.trajectory, t);
+                    Vector3 newPos = Coordinates3D(experiment.trajectory, t);
                     transform.localPosition = newPos;
                 }
                 else
                 {
-                    Vector3 newPos = CalculateCoordinates(experiment.settings.trajectory, t);
+                    Vector3 newPos = CalculateCoordinates(experiment.trajectory, t);
                     transform.localPosition = newPos;
                 }
                 t += Time.deltaTime * experiment.settings.speed;
@@ -86,11 +86,11 @@ public class TrackingTargetController : MonoBehaviour
 
             if(experiment.settings.thirdDimension)
             {
-                transform.localPosition = Coordinates3D(experiment.settings.trajectory, 0f);
+                transform.localPosition = Coordinates3D(experiment.trajectory, 0f);
             }
             else
             {
-                transform.localPosition = CalculateCoordinates(experiment.settings.trajectory, 0f);
+                transform.localPosition = CalculateCoordinates(experiment.trajectory, 0f);
             }
         }
 
@@ -114,7 +114,7 @@ public class TrackingTargetController : MonoBehaviour
 
         if (settings.showTrajectory)
         {
-            DrawTrajectory(settings.input);
+            DrawTrajectory(experiment.trajectory);
         } 
         
         else
@@ -123,7 +123,7 @@ public class TrackingTargetController : MonoBehaviour
         }
     }
 
-    Vector3 CalculateCoordinates(TrajectoryInput input, float t)
+    Vector3 CalculateCoordinates(TrackingExperimentManager.TrajectoryInput input, float t)
     {
         // https://www.desmos.com/calculator/w52gw1ycca
         float x = input.A * Mathf.Cos(input.q * (t + PIovertwo));
@@ -131,7 +131,7 @@ public class TrackingTargetController : MonoBehaviour
         return new Vector3(x, y, 0f);
     }
 
-    Vector3 Coordinates3D(TrajectoryInput input, float t)
+    Vector3 Coordinates3D(TrackingExperimentManager.TrajectoryInput input, float t)
     {
         // https://www.geogebra.org/3d/bajwcsth
         float x = input.A * Mathf.Cos(input.q * (t + PIovertwo));
@@ -140,7 +140,7 @@ public class TrackingTargetController : MonoBehaviour
         return new Vector3(x, y, z);
     }
 
-    void DrawTrajectory(TrajectoryInput input)
+    void DrawTrajectory(TrackingExperimentManager.TrajectoryInput input)
     {
         // enable line renderer
         trajectory.SetActive(true);

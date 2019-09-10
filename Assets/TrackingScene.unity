@@ -496,6 +496,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   session: {fileID: 931648258}
+  target: {fileID: 575930045}
 --- !u!114 &393784332
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -640,11 +641,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe2106090b5f97d4cbfae8b62f5762cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  waitColor: {r: 1, g: 0, b: 0, a: 0}
-  goColor: {r: 0, g: 1, b: 0.11850643, a: 0}
-  lineRenderer: {fileID: 1396475282}
   trajectory: {fileID: 1396475280}
+  lineRenderer: {fileID: 1396475282}
   lineResolution: 0.01
+  experiment: {fileID: 393784331}
   session: {fileID: 931648258}
 --- !u!1 &855548807
 GameObject:
