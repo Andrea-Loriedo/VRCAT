@@ -5,31 +5,29 @@ using UXF;
 
 public class TrackingDataAnalysis : MonoBehaviour
 {
+    // Objects
+    [SerializeField] Transform cursor;
+    [SerializeField] Transform target;
 
     List<float> distances = new List<float>();
-    public Transform cursor;
-    public Transform target;
 
     bool recording = false;
 
 	float sum = 0f;
 
-    // Use this for initialization
     void Start()
     {
 		distances.Capacity = 1024;
     }
 
-    // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         if (recording)
         {
-            float difference = ComparePosition();
-            distances.Add(difference);
-			sum += difference;
+            float distance = ComparePosition();
+            distances.Add(distance);
+			sum += distance;
         }
-
     }
 
     public void StartRecording(Trial trial)
@@ -41,7 +39,6 @@ public class TrackingDataAnalysis : MonoBehaviour
 	public void StopRecording(Trial trial)
     {
         recording = false;
-		// calculate mean
         float m = MeanCalculation();
 		trial.result["mean_distance"] = m;
 		sum = 0;
@@ -57,11 +54,10 @@ public class TrackingDataAnalysis : MonoBehaviour
 
     float ComparePosition()
     {
-        Vector3 cursorCurrPos = cursor.localPosition;
-        Vector3 targetCurrPos = target.localPosition;
-        Vector3 diff = targetCurrPos - cursorCurrPos;
-
-        return diff.magnitude;
+        Vector3 cursorCurrPos = cursor.position;
+        Vector3 targetCurrPos = target.position;
+        float dist = (Vector3.Distance(cursorCurrPos, targetCurrPos)) * 100f; // distance in cm         
+        return dist;
     }
 }
 

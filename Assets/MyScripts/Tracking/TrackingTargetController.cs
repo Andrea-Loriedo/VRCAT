@@ -26,7 +26,6 @@ public class TrackingTargetController : MonoBehaviour
     // Booleans
     bool taskStarted = false;
 
-
     void Awake()
     {
         sphereCollider = GetComponent<Collider>();
