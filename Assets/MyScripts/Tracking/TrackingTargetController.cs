@@ -39,7 +39,7 @@ public class TrackingTargetController : MonoBehaviour
         {
             StartCoroutine(MoveAfterDelay(session.nextTrial.block));
         }
-
+    
         ChangeTargetColour("green");
     }
 

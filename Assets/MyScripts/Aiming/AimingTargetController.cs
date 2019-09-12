@@ -6,6 +6,9 @@ using UnityEngine.Events;
 
 public class AimingTargetController : MonoBehaviour
 {
+    [SerializeField] AimingFeedbackController feedback;
+    TargetStatus status;
+
     // Objects
     Collider sphereCollider;
     MeshRenderer sphereMesh;
@@ -15,10 +18,12 @@ public class AimingTargetController : MonoBehaviour
     IEnumerator TargetEnterRoutine;
 
     //UXF
-    public Session session;
+    [SerializeField] Session session;
 
     // sphere speed in units per second, can be set from the inspector view
     [SerializeField] float speed = 1f; 
+
+    bool onTarget;
 
     private void Awake()
     {
@@ -26,6 +31,13 @@ public class AimingTargetController : MonoBehaviour
         sphereMesh = GetComponent<MeshRenderer>();
         orb = GetComponentInChildren<ParticleSystem>();
         TurnOff();
+        onTarget = false;
+    }
+
+    void Update()
+    {
+        CheckTargetStatus();
+        feedback.ShowFeedback(status);
     }
 
     public void TurnOn()
@@ -40,6 +52,7 @@ public class AimingTargetController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        onTarget = true;
         TargetEnterRoutine = TargetEnter(0.5f); // move the target after triggering it for over 0.5 seconds
         StartCoroutine(TargetEnterRoutine);
     }
@@ -49,7 +62,12 @@ public class AimingTargetController : MonoBehaviour
         StopCoroutine(TargetEnterRoutine);
     }
 
-        void MoveToNextPoint()
+    void CheckTargetStatus()
+    {
+        status = onTarget ? TargetStatus.Hit : TargetStatus.Miss;
+    }
+
+    void MoveToNextPoint()
     {
         // fetch the target 3D position for the next trial
         float x = (float)session.nextTrial.settings["target_x"];
@@ -97,6 +115,7 @@ public class AimingTargetController : MonoBehaviour
 
     IEnumerator MoveToNextPosition(Vector3 nextPosition)
     {
+        onTarget = false;
         // disable collider so that sphere can't be hit while moving
         sphereCollider.enabled = false;
 
