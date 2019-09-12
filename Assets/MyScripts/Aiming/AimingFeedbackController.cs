@@ -29,6 +29,7 @@ public class AimingFeedbackController : MonoBehaviour
 
     public void Clear()
     {
+        Debug.LogFormat("Clear feedback");
         feedbackText.text = "";
     }
 

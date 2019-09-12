@@ -52,7 +52,6 @@ public class AimingTargetController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        onTarget = true;
         TargetEnterRoutine = TargetEnter(0.5f); // move the target after triggering it for over 0.5 seconds
         StartCoroutine(TargetEnterRoutine);
     }
@@ -115,7 +114,7 @@ public class AimingTargetController : MonoBehaviour
 
     IEnumerator MoveToNextPosition(Vector3 nextPosition)
     {
-        onTarget = false;
+        onTarget = true;
         // disable collider so that sphere can't be hit while moving
         sphereCollider.enabled = false;
 
@@ -136,6 +135,7 @@ public class AimingTargetController : MonoBehaviour
         }
         // enable collider so that sphere can be hit again
         sphereCollider.enabled = true;
+        onTarget = false;
     }
 
     public void EndBehaviour(Trial endedTrial)

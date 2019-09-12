@@ -36,8 +36,8 @@ namespace UXFExamples
             {  
                 try
                 {
-                Debug.LogFormat("Invoke Start");
-                onNewBlockStart.Invoke();
+                    Debug.LogFormat("Invoke Start");
+                    onNewBlockStart.Invoke();
                 }
                 catch (UXF.NoSuchTrialException) // Avoid error message at the end of session
                 {
