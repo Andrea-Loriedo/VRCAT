@@ -48,7 +48,7 @@ public class TrackingDataAnalysis : MonoBehaviour
 	{
 		int recordings = distances.Count;
 		float mean = (sum/recordings);
-
+        Debug.LogFormat("Recs = {0}, Sum = {1}", recordings, sum);
 		return mean;
 	}
 

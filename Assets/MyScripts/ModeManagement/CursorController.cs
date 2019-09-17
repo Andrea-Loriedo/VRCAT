@@ -19,15 +19,6 @@ public class CursorController : MonoBehaviour
     void FixedUpdate()
     {
         currPos = transform.position;
-        // try
-        //     {
-        //         if(rb != null)
-        //         results.RecordVelocity(rb);
-        //     }
-        //     catch (System.FormatException e)
-        //     {
-        //         ;
-        //     }
         results.RecordVelocity(currPos, prevPos);
         prevPos = currPos;
     }

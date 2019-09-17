@@ -1,24 +1,60 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UXF;
 
 public class AimingResultsController : MonoBehaviour
 {
+    List<float> speeds = new List<float>();
     [HideInInspector] public float speed;
+
     public UXF.Session session;
-    Vector3 m_physMousePos;
-    
+
+    bool recording = false;
+
+    float sum = 0f;
+
     void Start()
     {
+        speeds.Capacity = 1024;
+    }
+
+    void FixedUpdate()
+    { 
+        if (recording)
+        {
+            speeds.Add(speed);
+			sum += speed;
+        }
+    }
+
+    public void StartRecording(Trial trial)
+    {
+		speeds.Clear();
+        recording = true;
     }
     
+    public void StopRecording(Trial trial)
+    {
+        recording = false;
+        float m = MeanCalculation();
+		trial.result["mean_speed"] = m;
+		sum = 0;
+    }
+
+	float MeanCalculation()
+	{
+		int recordings = speeds.Count;
+		float mean = (sum/recordings);
+        Debug.LogFormat("Recs = {0}, Sum = {1}", recordings, sum);
+
+		return mean;
+	}
+
     public void RecordVelocity(Vector3 currPosition, Vector3 prevPosition)
     {
-        // speed = rb.velocity.magnitude;  
-
-        // Debug.LogFormat("Speed = {0}", speed);  
-        float speed = (currPosition - prevPosition).magnitude / Time.fixedDeltaTime;
-        Debug.LogFormat("Speed = {0}", speed);
+        speed = (currPosition - prevPosition).magnitude / Time.fixedDeltaTime;
+        // Debug.LogFormat("Speed = {0}", speed);
     }
 
     // public void RecordResults(Vector3 cursorPosition, Vector3 velocity)
