@@ -44,9 +44,9 @@ public class UIController : MonoBehaviour {
 
 	bool CheckFormComplete() 
     {
-		GetConditionsTicked();
+		// GetConditionsTicked();
 
-        if (string.IsNullOrEmpty(inputFieldPrefab.age) || string.IsNullOrEmpty(dropdownPrefab.selectedGender) || !conditionsTicked)
+        if (string.IsNullOrEmpty(inputFieldPrefab.age) || string.IsNullOrEmpty(dropdownPrefab.selectedGender))
         {
             formIncomplete = true;
             Debug.LogFormat("Form incomplete!");
@@ -152,7 +152,7 @@ public class UIController : MonoBehaviour {
 		};
 	}
 
-		public void ShowFormIncompletePopup()
+	public void ShowFormIncompletePopup()
 	{
 		Popup existsWarning = new Popup();
 		existsWarning.messageType = MessageType.Warning;

@@ -427,6 +427,7 @@ ehthumbs_vista.db
 
 ### Project ###
 StreamingAssets/
+VRCAT_Data/
 
 # Dump file
 *.stackdump

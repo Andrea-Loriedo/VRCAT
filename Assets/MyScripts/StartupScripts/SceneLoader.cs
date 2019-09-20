@@ -18,7 +18,7 @@ public class SceneLoader : MonoBehaviour
 
     public Session session;
 
-    public string saveFolderName = "VRMAT_Data";
+    public string saveFolderName = "VRCAT_Data";
     bool readyToStart = false;
     bool atLeastOneTask;
 

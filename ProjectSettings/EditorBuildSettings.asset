@@ -8,4 +8,13 @@ EditorBuildSettings:
   - enabled: 0
     path: 
     guid: 00000000000000000000000000000000
+  - enabled: 1
+    path: Assets/StartupScene.unity
+    guid: 31c7626f881aaa843b1dde06d5b0fc79
+  - enabled: 1
+    path: Assets/TrackingScene.unity
+    guid: fee6c2ff8e4fb954aacee50eb00ee23a
+  - enabled: 1
+    path: Assets/AimingScene.unity
+    guid: d21212478f16bed4092544949bd3d734
   m_configObjects: {}
