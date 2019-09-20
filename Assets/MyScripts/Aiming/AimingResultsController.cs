@@ -6,8 +6,12 @@ using UXF;
 public class AimingResultsController : MonoBehaviour
 {
     [HideInInspector] public float speed;
+    [SerializeField] CursorController cursor;
 
     List<float> speeds = new List<float>();
+
+    Vector3 currPos;
+    Vector3 prevPos;    
 
     public UXF.Session session;
 
@@ -18,12 +22,17 @@ public class AimingResultsController : MonoBehaviour
     void Start()
     {
         speeds.Capacity = 1024;
+        prevPos = cursor.GetPosition();
     }
 
     void FixedUpdate()
     { 
         if (recording)
         {
+            currPos = cursor.GetPosition();
+            RecordVelocity(currPos, prevPos);
+            prevPos = currPos;
+
             speeds.Add(speed);
 			sum += speed;
         }
@@ -51,8 +60,9 @@ public class AimingResultsController : MonoBehaviour
 		return mean;
 	}
 
-    public void RecordVelocity(Vector3 currPosition, Vector3 prevPosition)
+    void RecordVelocity(Vector3 currPosition, Vector3 prevPosition)
     {
         speed = (currPosition - prevPosition).magnitude / Time.fixedDeltaTime;
+        Debug.LogFormat("Speed = {0}", speed);
     }
 }

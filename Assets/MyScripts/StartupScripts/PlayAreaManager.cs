@@ -7,7 +7,7 @@ public class PlayAreaManager : MonoBehaviour {
     
 	// public HeightMeasurer heightMeasurer;
 	public float refHeight = 1.6f;
-	float workspaceCenterRelativeHeight = 0.6f;
+	float workspaceCenterRelativeHeight = 0.9f;
 	string defaultHand = "Right";
 	
 	public GameObject cursor;

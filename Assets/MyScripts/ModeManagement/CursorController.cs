@@ -4,23 +4,20 @@ using UnityEngine;
 
 public class CursorController : MonoBehaviour
 {
-    [SerializeField] AimingResultsController results;
-    Rigidbody rb;
+    // [SerializeField] AimingResultsController results;
     public Transform target;
     Vector3 currPos;
     Vector3 prevPos;
 
     void Start()
     {
-        rb = GetComponent<Rigidbody>();
         prevPos = transform.position;
     }
 
-    void FixedUpdate()
+    public Vector3 GetPosition()
     {
         currPos = transform.position;
-        results.RecordVelocity(currPos, prevPos);
-        prevPos = currPos;
+        return currPos;
     }
 
     void Update()
