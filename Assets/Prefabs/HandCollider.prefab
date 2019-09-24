@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8111996688026858480}
   - component: {fileID: 6187084497034992094}
   - component: {fileID: 4393720063997212605}
-  - component: {fileID: 7001326784488462752}
+  - component: {fileID: 9041125526933668418}
   m_Layer: 8
   m_Name: HandCollider
   m_TagString: Untagged
@@ -201,7 +201,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
---- !u!114 &7001326784488462752
+--- !u!114 &9041125526933668418
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -210,7 +210,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 6487728737957815735}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8a61e4e6a1046c24da18d79965d46213, type: 3}
+  m_Script: {fileID: 11500000, guid: b532151485b75a147bad118b7150ab90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}

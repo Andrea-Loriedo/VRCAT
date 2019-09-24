@@ -19,16 +19,16 @@ public class PointsGenerator : MonoBehaviour {
     // convert from polar to cartesian coordinates
     void ConvertToCartesian(float r, float angle)
     {
-       r = radius;
-       angle = _angle;
+        r = radius;
+        angle = _angle;
 
-       _penta_x = r * Mathf.Cos(angle);
-       _penta_y = r * Mathf.Sin(angle);
+        _penta_x = r * Mathf.Cos(angle);
+        _penta_y = r * Mathf.Sin(angle);
     }
 
     [ContextMenu("Generate new points")]
     
-	public void GenerateNewPoints()
+    public void GenerateNewPoints()
     {   
         // dictionary to store the lists of points for each block
         var dict = new Dictionary<string, object>();
@@ -112,12 +112,11 @@ public class PointsGenerator : MonoBehaviour {
         var fileInfo = new WriteFileInfo()
         {   // path to coordinates file
             basePath = Application.streamingAssetsPath,
-            paths = new string[] { "aiming.json" }
+            paths = new string[] { "aiming_settings.json" }
         };
 
         // convert dictionaries to json and write to file "generated_points.json"
         fiom.WriteJson(dict, fileInfo);
 
     }
-
 }
