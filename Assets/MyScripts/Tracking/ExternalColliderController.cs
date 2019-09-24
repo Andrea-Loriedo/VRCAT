@@ -8,11 +8,15 @@ public class ExternalColliderController : MonoBehaviour
 
     Status status;
 
+    // Scripts
+    HapticsController haptics;
+
     bool onTarget;
 
     // Start is called before the first frame update
     void Start()
     {
+        haptics = GetComponent<HapticsController>();
         onTarget = false;
     }
 
@@ -26,11 +30,14 @@ public class ExternalColliderController : MonoBehaviour
     void OnTriggerEnter()
     {
         onTarget = true;
+        StartCoroutine(haptics.VibrateLoop(0.1f, true));
     }
 
     void OnTriggerExit()
     {
         onTarget = false;
+        StopAllCoroutines();
+        haptics.StopVibration();
     }
 
     void CheckDistance()

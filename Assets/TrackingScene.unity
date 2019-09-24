@@ -656,6 +656,7 @@ GameObject:
   - component: {fileID: 454692449}
   - component: {fileID: 454692450}
   - component: {fileID: 454692451}
+  - component: {fileID: 454692452}
   m_Layer: 0
   m_Name: ExternalCollider
   m_TagString: Untagged
@@ -703,6 +704,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   feedback: {fileID: 1679891948}
+--- !u!114 &454692452
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 454692448}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3013a87ed1083f1499d6fc03cef10d85, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &513608101 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 487254, guid: 126d619cf4daa52469682f85c1378b4a,
