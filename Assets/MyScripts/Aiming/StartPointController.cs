@@ -3,10 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
+[RequireComponent(typeof(AudioSource))]
+
 public class StartPointController : MonoBehaviour
 {
     // Events
     [SerializeField] UnityEvent onStartBlock;
+
+    // Scripts
+    HapticsController haptics;
 
     // Materials
     [SerializeField] Material ready;
@@ -18,9 +23,14 @@ public class StartPointController : MonoBehaviour
     // Coroutines
     IEnumerator waitBlockSTartRoutine;
 
+    // Objects
+    AudioSource audioData;
+
     private void Awake()
     {
+        haptics = GetComponent<HapticsController>();
         mesh = GetComponent<MeshRenderer>();
+        audioData = GetComponent<AudioSource>();
     }
 
     public void TurnOn()
@@ -28,6 +38,7 @@ public class StartPointController : MonoBehaviour
         gameObject.SetActive(true);
         // Change start point colour back to the original one
         mesh.material = ready; 
+        audioData.Play(0);
     }
 
     public void TurnOff()
@@ -38,14 +49,15 @@ public class StartPointController : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         // start the block of trials if the cursor is kept within the start block for two seconds
+        StartCoroutine(haptics.VibrateLoop(0.1f, true));
         waitBlockSTartRoutine = WaitBlockStart(2);
         StartCoroutine(waitBlockSTartRoutine);
     }
 
     private void OnTriggerExit(Collider other)
     {
-        // reset the start block status if trigger exits
-        StopCoroutine(waitBlockSTartRoutine);
+        StopAllCoroutines();
+        haptics.StopVibration();
         // change start point colour on trigger exit
         mesh.material = ready;
     }
@@ -56,6 +68,7 @@ public class StartPointController : MonoBehaviour
         mesh.material = go;
         yield return new WaitForSeconds(delayTime);
         // Start the experimental block after a delay
+        haptics.StopVibration();
         StartBlock();
     }
 

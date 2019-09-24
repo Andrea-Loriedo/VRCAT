@@ -4,6 +4,8 @@ using UnityEngine;
 using UXF;
 using System;
 
+[RequireComponent(typeof(AudioSource))]
+
 public class TrackingTargetController : MonoBehaviour
 {
     [SerializeField] TrajectoryController trajectory;
@@ -18,6 +20,7 @@ public class TrackingTargetController : MonoBehaviour
     Collider sphereCollider;
     MeshRenderer sphereRenderer;
     ParticleSystem[] orb;
+    AudioSource audioData;
 
     // Constants
     static float twoPI = Mathf.PI * 2f;
@@ -30,6 +33,7 @@ public class TrackingTargetController : MonoBehaviour
     {
         sphereCollider = GetComponent<Collider>();
         sphereRenderer = GetComponent<MeshRenderer>();
+        audioData = GetComponent<AudioSource>();
         orb = GetComponentsInChildren<ParticleSystem>();
     }
 
@@ -102,6 +106,8 @@ public class TrackingTargetController : MonoBehaviour
 
     void ResetTargetPosition(float position)
     {
+        audioData.Play(0);
+        
         if(experiment.settings.thirdDimension)
         {
             transform.localPosition = trajectory.Coordinates3D(experiment.settings.input, position);

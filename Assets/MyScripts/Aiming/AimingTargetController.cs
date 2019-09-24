@@ -4,6 +4,8 @@ using UnityEngine;
 using UXF;
 using UnityEngine.Events;
 
+[RequireComponent(typeof(AudioSource))]
+
 public class AimingTargetController : MonoBehaviour
 {
     [SerializeField] AimingFeedbackController feedback;
@@ -13,6 +15,10 @@ public class AimingTargetController : MonoBehaviour
     Collider sphereCollider;
     MeshRenderer sphereMesh;
     ParticleSystem orb;
+    AudioSource audioData;
+
+    // Scripts 
+    HapticsController haptics;
 
     // Coroutines
     IEnumerator TargetEnterRoutine;
@@ -27,8 +33,10 @@ public class AimingTargetController : MonoBehaviour
 
     private void Awake()
     {
+        haptics = GetComponent<HapticsController>();
         sphereCollider = GetComponent<SphereCollider>();
         sphereMesh = GetComponent<MeshRenderer>();
+        audioData = GetComponent<AudioSource>();
         orb = GetComponentInChildren<ParticleSystem>();
         TurnOff();
         onTarget = false;
@@ -53,6 +61,7 @@ public class AimingTargetController : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         TargetEnterRoutine = TargetEnter(0.5f); // move the target after triggering it for over 0.5 seconds
+        StartCoroutine(haptics.Vibrate(0.2f));
         StartCoroutine(TargetEnterRoutine);
     }
 
@@ -114,6 +123,8 @@ public class AimingTargetController : MonoBehaviour
 
     IEnumerator MoveToNextPosition(Vector3 nextPosition)
     {
+        audioData.Play(0);
+        
         onTarget = true;
         // disable collider so that sphere can't be hit while moving
         sphereCollider.enabled = false;
