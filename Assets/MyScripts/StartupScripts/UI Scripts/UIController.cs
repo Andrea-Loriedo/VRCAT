@@ -12,13 +12,13 @@ public class UIController : MonoBehaviour {
     public InputFieldManager inputFieldPrefab;
 	public PopupController popupController;
 
-	public string ppid;
-	public string age;
-	public string gender;
-	public string handedness;
+	[HideInInspector] public string ppid;
+	[HideInInspector] public string age;
+	[HideInInspector] public string gender;
+	[HideInInspector] public string handedness;
 
-    public bool formIncomplete;
-	public bool taskSelected;
+    [HideInInspector] public bool formIncomplete;
+	[HideInInspector] public bool taskSelected;
 	bool conditionsTicked;
 
     void Awake()

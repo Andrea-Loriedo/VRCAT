@@ -3,6 +3,7 @@ using System.IO;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UXF;
 
 public class TaskParamsUI : MonoBehaviour
 {
@@ -11,7 +12,8 @@ public class TaskParamsUI : MonoBehaviour
     public string sceneName;
 	public Toggle toggle;
 	public Text toggleLabel;
-	public InputField settingsFileName;
+	// public InputField settingsFileName;
+	public DropDownController settingsFileName;
 
 	public bool IsChecked
 	{
@@ -25,7 +27,8 @@ public class TaskParamsUI : MonoBehaviour
 
 	public AssessmentParameters GetParameters()
 	{
-		string fileName = string.Format("{0}.json", settingsFileName.text);
+		string fileName = string.Format("{0}", settingsFileName.GetContents());
+		// string fileName = string.Format("{0}.json", settingsFileName.text);
 		string filePath = Path.Combine(Application.streamingAssetsPath, fileName);
 
 		string jsonText = File.ReadAllText(filePath);
