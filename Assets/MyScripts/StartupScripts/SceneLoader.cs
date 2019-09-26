@@ -56,11 +56,12 @@ public class SceneLoader : MonoBehaviour
     {
         yield return new WaitUntil(() => headAligner.isAligned);
 
-        Debug.LogFormat("Participant {0} is a {1} years old {2}.", formSelections.ppid, formSelections.age, formSelections.gender);
+        // Debug.LogFormat("Participant {0} is a {1} years old {2}.", formSelections.ppid, formSelections.age, formSelections.gender);
 
         // make dictionary for participant details
         Dictionary<string, object> ppDetails = new Dictionary<string, object>()
         {   
+            // { "PPID", formSelections.ppid },
             { "PPID", formSelections.ppid },
             { "Height", eye.position.y },
             { "Age", formSelections.age },

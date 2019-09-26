@@ -11,6 +11,8 @@ public class UIController : MonoBehaviour {
 	public DropdownManager dropdownPrefab;
     public InputFieldManager inputFieldPrefab;
 	public PopupController popupController;
+	public FillableFormController form;
+	public Session session;
 
 	[HideInInspector] public string ppid;
 	[HideInInspector] public string age;
@@ -143,9 +145,11 @@ public class UIController : MonoBehaviour {
 
 	public FormData GetFormData()
 	{
+		var completedForm = form.GetCompletedForm();
+
 		return new FormData()
 		{
-			ppid = ppid,
+			ppid = completedForm["ppid"].ToString(),
 			age = inputFieldPrefab.age,
 			gender = dropdownPrefab.selectedGender,
 			// handedness = dropdownPrefab.selectedHand

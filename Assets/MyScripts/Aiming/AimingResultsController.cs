@@ -63,6 +63,6 @@ public class AimingResultsController : MonoBehaviour
     void RecordVelocity(Vector3 currPosition, Vector3 prevPosition)
     {
         speed = (currPosition - prevPosition).magnitude / Time.fixedDeltaTime;
-        Debug.LogFormat("Speed = {0}", speed);
+        // Debug.LogFormat("Speed = {0}", speed);
     }
 }
