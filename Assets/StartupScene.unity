@@ -2889,6 +2889,8 @@ MonoBehaviour:
   form: {fileID: 1037779061}
   headTarget: {fileID: 1716848229}
   eye: {fileID: 455508278}
+  ppListSelect: {fileID: 936297723}
+  startup: {fileID: 1109987326}
   finishedScene: 0
   session: {fileID: 436359183}
   saveFolderName: VRCAT_Results
@@ -4250,6 +4252,7 @@ MonoBehaviour:
   form: {fileID: 1429609857}
   popupController: {fileID: 1487313493}
   startButton: {fileID: 929367485}
+  customForm: {fileID: 1037779061}
 --- !u!222 &936297724
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4717,6 +4720,7 @@ MonoBehaviour:
   inputFieldPrefab: {fileID: 2834256}
   popupController: {fileID: 1487313493}
   form: {fileID: 1429609857}
+  ppListSelect: {fileID: 936297723}
   session: {fileID: 436359183}
   ppid: 
   age: 
@@ -5447,7 +5451,19 @@ MonoBehaviour:
   quickStartMode: 0
   saveDataLocation: example_output
   experimentSettingsName: example_experiment_1.json
-  _participantDataPoints: []
+  _participantDataPoints:
+  - displayName: Age
+    internalName: age
+    dataType: 2
+    dropDownValues: []
+  - displayName: Gender
+    internalName: gender
+    dataType: 0
+    dropDownValues: []
+  - displayName: Height
+    internalName: height
+    dataType: 1
+    dropDownValues: []
   maxNumSessions: 10
   settingsSearchPattern: aiming*.json
   newParticipantName: <i><color=grey>+ New participant</color></i>
@@ -9366,7 +9382,7 @@ PrefabInstance:
     - target: {fileID: 30184292197068384, guid: cac1b858289d6b24e941b478a47f747c,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
-      value: 4
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 30184292197068384, guid: cac1b858289d6b24e941b478a47f747c,
         type: 3}
@@ -9402,7 +9418,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Target
       value: 
-      objectReference: {fileID: 1109987326}
+      objectReference: {fileID: 1837378775}
     - target: {fileID: 30184292197068384, guid: cac1b858289d6b24e941b478a47f747c,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_MethodName

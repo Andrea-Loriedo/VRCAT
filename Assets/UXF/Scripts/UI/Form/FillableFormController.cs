@@ -143,7 +143,6 @@ namespace UXF
 
     }
 
-
     public enum FormDataType
     {
         String, Float, Int, Bool, DropDown

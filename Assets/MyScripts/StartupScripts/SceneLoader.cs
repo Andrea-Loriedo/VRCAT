@@ -12,6 +12,8 @@ public class SceneLoader : MonoBehaviour
     public UIController form;
     public GameObject headTarget;
     public Transform eye;
+    public ParticipantListSelection ppListSelect;
+    public ExperimentStartupController startup;
 
     [HideInInspector]
     public bool finishedScene;
@@ -21,11 +23,13 @@ public class SceneLoader : MonoBehaviour
     public string saveFolderName = "VRCAT_Results";
     bool readyToStart = false;
     bool atLeastOneTask;
+    float height;
 
     void Awake()
     {
         DontDestroyOnLoad(gameObject);
         readyToStart = false;
+        height = 0f;
     } 
 
     public void RunAllSelectedTasks()
@@ -55,19 +59,22 @@ public class SceneLoader : MonoBehaviour
     IEnumerator SceneSequence(List<AssessmentParameters> selectedScenes, FormData formSelections)
     {
         yield return new WaitUntil(() => headAligner.isAligned);
+        height = eye.position.y;
 
         // Debug.LogFormat("Participant {0} is a {1} years old {2}.", formSelections.ppid, formSelections.age, formSelections.gender);
 
         // make dictionary for participant details
         Dictionary<string, object> ppDetails = new Dictionary<string, object>()
         {   
-            // { "PPID", formSelections.ppid },
             { "PPID", formSelections.ppid },
-            { "Height", eye.position.y },
+            { "Height", height },
             { "Age", formSelections.age },
             { "Gender", formSelections.gender },
             // { "Writing hand", formSelections.handedness }
         };
+
+        ppListSelect.UpdateDatapoint(formSelections.ppid, "height", height);
+        ppListSelect.CommitCSV();
 
         foreach (var sceneSelection in selectedScenes)
         {

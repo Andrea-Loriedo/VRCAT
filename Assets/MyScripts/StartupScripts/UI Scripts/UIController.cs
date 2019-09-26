@@ -12,6 +12,7 @@ public class UIController : MonoBehaviour {
     public InputFieldManager inputFieldPrefab;
 	public PopupController popupController;
 	public FillableFormController form;
+	public ParticipantListSelection ppListSelect;
 	public Session session;
 
 	[HideInInspector] public string ppid;
@@ -21,6 +22,9 @@ public class UIController : MonoBehaviour {
 
     [HideInInspector] public bool formIncomplete;
 	[HideInInspector] public bool taskSelected;
+
+	[HideInInspector] public PPDataPoints ppDataPoints;
+
 	bool conditionsTicked;
 
     void Awake()
@@ -145,15 +149,41 @@ public class UIController : MonoBehaviour {
 
 	public FormData GetFormData()
 	{
-		var completedForm = form.GetCompletedForm();
-
 		return new FormData()
 		{
-			ppid = completedForm["ppid"].ToString(),
+			// ppid = completedForm["ppid"].ToString(),
+			ppid = ppListSelect.Finish(),
 			age = inputFieldPrefab.age,
 			gender = dropdownPrefab.selectedGender,
 			// handedness = dropdownPrefab.selectedHand
 		};
+	}
+
+	// public PPDataPoints GetPPDataPoints()
+	// {
+	// 	return new PPDataPoints()
+	// 	{
+	// 		age = inputFieldPrefab.age,
+	// 		gender = dropdownPrefab.selectedGender,
+	// 		height,
+	// 		// handedness = dropdownPrefab.selectedHand
+	// 	};
+	// }
+
+	public Dictionary<string, object> GetCustomForm()
+	{
+		Dictionary<string, object> dict = new Dictionary<string, object>();
+
+		PPDataPoints data = new PPDataPoints()
+		{
+			age = inputFieldPrefab.age,
+			gender = dropdownPrefab.selectedGender,
+		};
+
+		dict.Add("age", data.age);
+		dict.Add("gender", data.gender);
+
+		return dict;
 	}
 
 	public void ShowFormIncompletePopup()
@@ -172,6 +202,12 @@ public class UIController : MonoBehaviour {
 		taskSelectionMissing.message = string.Format("Please select at least one task before starting the experiment");
 		taskSelectionMissing.onOK = new Action(() => {});
 		popupController.DisplayPopup(taskSelectionMissing);
+	}
+
+	public struct PPDataPoints
+	{
+		public string age;
+		public string gender;
 	}
 }
 
