@@ -23,8 +23,6 @@ public class UIController : MonoBehaviour {
     [HideInInspector] public bool formIncomplete;
 	[HideInInspector] public bool taskSelected;
 
-	[HideInInspector] public PPDataPoints ppDataPoints;
-
 	bool conditionsTicked;
 
     void Awake()
@@ -159,33 +157,6 @@ public class UIController : MonoBehaviour {
 		};
 	}
 
-	// public PPDataPoints GetPPDataPoints()
-	// {
-	// 	return new PPDataPoints()
-	// 	{
-	// 		age = inputFieldPrefab.age,
-	// 		gender = dropdownPrefab.selectedGender,
-	// 		height,
-	// 		// handedness = dropdownPrefab.selectedHand
-	// 	};
-	// }
-
-	public Dictionary<string, object> GetCustomForm()
-	{
-		Dictionary<string, object> dict = new Dictionary<string, object>();
-
-		PPDataPoints data = new PPDataPoints()
-		{
-			age = inputFieldPrefab.age,
-			gender = dropdownPrefab.selectedGender,
-		};
-
-		dict.Add("age", data.age);
-		dict.Add("gender", data.gender);
-
-		return dict;
-	}
-
 	public void ShowFormIncompletePopup()
 	{
 		Popup existsWarning = new Popup();
@@ -202,12 +173,6 @@ public class UIController : MonoBehaviour {
 		taskSelectionMissing.message = string.Format("Please select at least one task before starting the experiment");
 		taskSelectionMissing.onOK = new Action(() => {});
 		popupController.DisplayPopup(taskSelectionMissing);
-	}
-
-	public struct PPDataPoints
-	{
-		public string age;
-		public string gender;
 	}
 }
 

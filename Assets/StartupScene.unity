@@ -1502,7 +1502,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1970900254558334, guid: 0a3b6392f04558844bd340e68ced1ff9, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4522850482104986, guid: 0a3b6392f04558844bd340e68ced1ff9, type: 3}
       propertyPath: m_LocalPosition.x
@@ -4252,7 +4252,6 @@ MonoBehaviour:
   form: {fileID: 1429609857}
   popupController: {fileID: 1487313493}
   startButton: {fileID: 929367485}
-  customForm: {fileID: 1037779061}
 --- !u!222 &936297724
 CanvasRenderer:
   m_ObjectHideFlags: 0

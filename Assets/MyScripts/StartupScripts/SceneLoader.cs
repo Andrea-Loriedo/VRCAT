@@ -79,7 +79,7 @@ public class SceneLoader : MonoBehaviour
         ppListSelect.UpdateDatapoint(formSelections.ppid, "gender", ppDetails["Gender"]);
         ppListSelect.CommitCSV();
 
-        foreach (var sceneSelection in selectedScenes)s
+        foreach (var sceneSelection in selectedScenes)
         {
             SceneManager.LoadScene(sceneSelection.sceneName, LoadSceneMode.Single);
             finishedScene = false;
