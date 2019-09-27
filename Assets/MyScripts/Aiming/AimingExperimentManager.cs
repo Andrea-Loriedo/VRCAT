@@ -26,9 +26,6 @@ namespace UXFExamples
         public void StartNextTrial()
         {
             session.BeginNextTrial();
-            aimingSettings.speed = (float) session.currentTrial.settings["target_speed"]; 
-            aimingSettings.size = (float) session.currentTrial.settings["target_size"]; 
-            target.ApplySettings(aimingSettings);
         }
 
         public void CheckIfLastBlock()

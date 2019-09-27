@@ -16,7 +16,10 @@ public class AimingTargetController : MonoBehaviour
     // Objects
     Collider sphereCollider;
     MeshRenderer sphereMesh;
-    ParticleSystem orb;
+    [SerializeField] GameObject orb;
+    [SerializeField] GameObject particles;
+    [SerializeField] GameObject smoke;
+    [SerializeField] GameObject beam;
     AudioSource audioData;
 
     // Scripts 
@@ -40,7 +43,7 @@ public class AimingTargetController : MonoBehaviour
         sphereCollider = GetComponent<SphereCollider>();
         sphereMesh = GetComponent<MeshRenderer>();
         audioData = GetComponent<AudioSource>();
-        orb = GetComponentInChildren<ParticleSystem>();
+
         TurnOff();
         onTarget = false;
     }
@@ -78,11 +81,18 @@ public class AimingTargetController : MonoBehaviour
         status = onTarget ? TargetStatus.Hit : TargetStatus.Miss;
     }
 
-    public void ApplySettings(AimingBlockSettings settings)
+    public void ApplySettings()
     {
-        speed = settings.speed;
-        size = settings.size;
+        experiment.aimingSettings.speed = session.settings.GetFloat("target_speed");
+        experiment.aimingSettings.size = session.settings.GetFloat("target_size");
+
+        speed = experiment.aimingSettings.speed;
+        size = experiment.aimingSettings.size;
         transform.localScale *= size;
+        orb.transform.localScale *= size; 
+        particles.transform.localScale *= size; 
+        smoke.transform.localScale *= size; 
+        beam.transform.localScale *= size;
     }
 
     void MoveToNextPoint()
