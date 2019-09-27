@@ -8,7 +8,7 @@ public class TrackingExperimentManager : MonoBehaviour
     // UXF
     [SerializeField] Session session;
     [HideInInspector]
-    public BlockSettings settings;
+    public TrackingBlockSettings trackingSettings;
 
     // Game
     [SerializeField] TrajectoryController trajectory;
@@ -24,27 +24,27 @@ public class TrackingExperimentManager : MonoBehaviour
     public void StartNextTrial()
     {
         session.nextTrial.Begin();
-        settings.speed = (float) session.currentTrial.settings["speed"]; 
-        settings.showTrajectory = (bool) session.currentTrial.settings["show_trajectory"];
-        settings.input.A = (float) session.currentTrial.settings["A"]; 
-        settings.input.B = (float) session.currentTrial.settings["B"]; 
-        settings.input.C = (float) session.currentTrial.settings["C"]; 
-        settings.input.q = (float) session.currentTrial.settings["q"]; 
-        settings.input.p = (float) session.currentTrial.settings["p"]; 
-        settings.input.r = (float) session.currentTrial.settings["r"]; 
-        trajectory.ApplyBlockSettings(settings);
+        trackingSettings.speed = (float) session.currentTrial.settings["speed"]; 
+        trackingSettings.showTrajectory = (bool) session.currentTrial.settings["show_trajectory"];
+        trackingSettings.input.A = (float) session.currentTrial.settings["A"]; 
+        trackingSettings.input.B = (float) session.currentTrial.settings["B"]; 
+        trackingSettings.input.C = (float) session.currentTrial.settings["C"]; 
+        trackingSettings.input.q = (float) session.currentTrial.settings["q"]; 
+        trackingSettings.input.p = (float) session.currentTrial.settings["p"]; 
+        trackingSettings.input.r = (float) session.currentTrial.settings["r"]; 
+        trajectory.ApplyBlockSettings(trackingSettings);
     }
 
-    public BlockSettings GetBlockSettings()
+    public TrackingBlockSettings GetBlockSettings()
     {
-        return settings;
+        return trackingSettings;
     }
 }
 
 /// <summary>
 /// A, B and C control the amplitude of the trajectory - q, p and r control its complexity
 /// </summary>
-public struct BlockSettings
+public struct TrackingBlockSettings
 {
     public struct TrajectoryInput
     {

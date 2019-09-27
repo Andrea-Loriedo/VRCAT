@@ -66,18 +66,18 @@ public class TrackingTargetController : MonoBehaviour
             
             while (t < twoPI) 
             {  
-                if(experiment.settings.thirdDimension)
+                if(experiment.trackingSettings.thirdDimension)
                 {
-                    Vector3 newPos = trajectory.Coordinates3D(experiment.settings.input, t);
+                    Vector3 newPos = trajectory.Coordinates3D(experiment.trackingSettings.input, t);
                     transform.localPosition = newPos;
                 }
                 else
                 {
-                    Vector3 newPos = trajectory.Coordinates2D(experiment.settings.input, t);
+                    Vector3 newPos = trajectory.Coordinates2D(experiment.trackingSettings.input, t);
                     transform.localPosition = newPos;
                 }
 
-                t += Time.deltaTime * experiment.settings.speed;
+                t += Time.deltaTime * experiment.trackingSettings.speed;
                 yield return null;
             }
 
@@ -108,13 +108,13 @@ public class TrackingTargetController : MonoBehaviour
     {
         audioData.Play(0);
         
-        if(experiment.settings.thirdDimension)
+        if(experiment.trackingSettings.thirdDimension)
         {
-            transform.localPosition = trajectory.Coordinates3D(experiment.settings.input, position);
+            transform.localPosition = trajectory.Coordinates3D(experiment.trackingSettings.input, position);
         }
         else
         {
-            transform.localPosition = trajectory.Coordinates2D(experiment.settings.input, position);
+            transform.localPosition = trajectory.Coordinates2D(experiment.trackingSettings.input, position);
         }
     }
 

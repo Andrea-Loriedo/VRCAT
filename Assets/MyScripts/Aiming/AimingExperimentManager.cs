@@ -11,6 +11,9 @@ namespace UXFExamples
     {   
         [SerializeField] UnityEvent onNewBlockStart;
         [SerializeField] Session session;
+        [SerializeField] AimingTargetController target;
+
+        public AimingBlockSettings aimingSettings;
 
         bool lastBlock = false;
 
@@ -18,6 +21,14 @@ namespace UXFExamples
         {
             // disable the whole task initially to give time to use the UI
             gameObject.SetActive(false);
+        }
+
+        public void StartNextTrial()
+        {
+            session.BeginNextTrial();
+            aimingSettings.speed = (float) session.currentTrial.settings["target_speed"]; 
+            aimingSettings.size = (float) session.currentTrial.settings["target_size"]; 
+            target.ApplySettings(aimingSettings);
         }
 
         public void CheckIfLastBlock()
@@ -46,4 +57,10 @@ namespace UXFExamples
             }
         }
     }
+}
+
+public struct AimingBlockSettings
+{
+    public float speed;
+    public float size;
 }

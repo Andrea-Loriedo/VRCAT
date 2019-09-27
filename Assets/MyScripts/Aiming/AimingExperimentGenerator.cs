@@ -7,6 +7,11 @@ public class AimingExperimentGenerator : MonoBehaviour
 {
     public void Generate(Session session)
     {
+        var settings = new Dictionary<string, object>();
+
+        settings.Add("target_speed", session.settings.GetFloat("target_speed"));
+        settings.Add("target_size", session.settings.GetFloat("target_size"));
+
         List<object> startingPoints = (List<object>)session.settings["starting_points"];
         List<object> pointsBlock1 = (List<object>)session.settings["block1_points"];
         List<object> pointsBlock2 = (List<object>)session.settings["block2_points"];
@@ -20,6 +25,10 @@ public class AimingExperimentGenerator : MonoBehaviour
         SetStartCoordinates((List<object>) startingPoints[0], block1);
         SetStartCoordinates((List<object>) startingPoints[1], block2);
         SetStartCoordinates((List<object>) startingPoints[2], block3);
+
+        AssignBlockSettings(settings, block1);
+        AssignBlockSettings(settings, block2);
+        AssignBlockSettings(settings, block3);
 
         foreach (List<object> point in pointsBlock1)
         {
@@ -62,5 +71,14 @@ public class AimingExperimentGenerator : MonoBehaviour
             newTrial.settings["target_z"] = z;
             
         }
+
+        void AssignBlockSettings(Dictionary<string, object> settings, Block block)
+        {
+            float speed = System.Convert.ToSingle(settings["target_speed"]);
+            float size = System.Convert.ToSingle(settings["target_size"]);
+        
+            block.settings["target_speed"] = speed;
+            block.settings["target_size"] = size;
+	    }
 
 }

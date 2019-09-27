@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UXF;
+using UXFExamples;
 using UnityEngine.Events;
 
 [RequireComponent(typeof(AudioSource))]
@@ -9,6 +10,7 @@ using UnityEngine.Events;
 public class AimingTargetController : MonoBehaviour
 {
     [SerializeField] AimingFeedbackController feedback;
+    [SerializeField] AimingExperimentManager experiment;
     TargetStatus status;
 
     // Objects
@@ -27,7 +29,8 @@ public class AimingTargetController : MonoBehaviour
     [SerializeField] Session session;
 
     // sphere speed in units per second, can be set from the inspector view
-    [SerializeField] float speed = 1f; 
+    float speed = 1f; 
+    float size = 1f;
 
     bool onTarget;
 
@@ -73,6 +76,13 @@ public class AimingTargetController : MonoBehaviour
     void CheckTargetStatus()
     {
         status = onTarget ? TargetStatus.Hit : TargetStatus.Miss;
+    }
+
+    public void ApplySettings(AimingBlockSettings settings)
+    {
+        speed = settings.speed;
+        size = settings.size;
+        transform.localScale *= size;
     }
 
     void MoveToNextPoint()
@@ -130,7 +140,7 @@ public class AimingTargetController : MonoBehaviour
         sphereCollider.enabled = false;
 
         // start the next trial
-        session.BeginNextTrial();
+        experiment.StartNextTrial();
 
         Vector3 currPos = transform.localPosition; // current target position
         Vector3 diff = nextPosition - currPos; // 3D distance from the next target position

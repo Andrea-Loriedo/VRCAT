@@ -20,7 +20,7 @@ public class TrajectoryController : MonoBehaviour
         lineRenderer = GetComponent<LineRenderer>();  
     }
 
-    void DrawTrajectory(BlockSettings.TrajectoryInput input)
+    void DrawTrajectory(TrackingBlockSettings.TrajectoryInput input)
     {
         // enable line renderer
         gameObject.SetActive(true);
@@ -53,7 +53,7 @@ public class TrajectoryController : MonoBehaviour
         }
     }
 
-    public void ApplyBlockSettings(BlockSettings settings)
+    public void ApplyBlockSettings(TrackingBlockSettings settings)
     {
         if(settings.thirdDimension)
         {
@@ -67,7 +67,7 @@ public class TrajectoryController : MonoBehaviour
 
         if (settings.showTrajectory)
         {
-            DrawTrajectory(experiment.settings.input);
+            DrawTrajectory(experiment.trackingSettings.input);
         } 
 
         else
@@ -76,7 +76,7 @@ public class TrajectoryController : MonoBehaviour
         }
     }
 
-    public Vector3 Coordinates2D(BlockSettings.TrajectoryInput input, float t)
+    public Vector3 Coordinates2D(TrackingBlockSettings.TrajectoryInput input, float t)
     {
         // https://www.desmos.com/calculator/w52gw1ycca
         float x = input.A * Mathf.Cos(input.q * (t + PIovertwo));
@@ -84,7 +84,7 @@ public class TrajectoryController : MonoBehaviour
         return new Vector3(x, y, 0f);
     }
 
-    public Vector3 Coordinates3D(BlockSettings.TrajectoryInput input, float t)
+    public Vector3 Coordinates3D(TrackingBlockSettings.TrajectoryInput input, float t)
     {
         // https://www.geogebra.org/3d/bajwcsth
         float x = input.A * Mathf.Cos(input.q * (t + PIovertwo));
