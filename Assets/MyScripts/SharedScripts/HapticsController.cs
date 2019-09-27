@@ -1,10 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static OVRInput;
 
 public class HapticsController : MonoBehaviour
 {
     public IEnumerator vibrateLoopRoutine;
+    
+    static Controller currentController;
+
+    string defaultHand = "Right";
 
     void Start()
     {
@@ -13,24 +18,24 @@ public class HapticsController : MonoBehaviour
 
     public IEnumerator Vibrate(float delayTime)
     {
-        OVRInput.SetControllerVibration (1, 1, OVRInput.Controller.RTouch);
+        OVRInput.SetControllerVibration (1, 1, currentController);
         yield return new WaitForSeconds(delayTime);
-        OVRInput.SetControllerVibration (0, 0, OVRInput.Controller.RTouch);
+        OVRInput.SetControllerVibration (0, 0, currentController);
     }
 
     public IEnumerator VibrateLoop(float delayTime, bool vibrate)
     {
         while(vibrate)
         {
-            OVRInput.SetControllerVibration (1, 1, OVRInput.Controller.RTouch);
+            OVRInput.SetControllerVibration (1, 1, currentController);
             yield return new WaitForSeconds(delayTime);
-            OVRInput.SetControllerVibration (0, 0, OVRInput.Controller.RTouch);
+            OVRInput.SetControllerVibration (0, 0, currentController);
             yield return new WaitForSeconds(delayTime);
         }
 
         while(!vibrate)
         {
-            OVRInput.SetControllerVibration (0, 0, OVRInput.Controller.RTouch);
+            OVRInput.SetControllerVibration (0, 0, currentController);
         }
 
         yield return null;
@@ -38,6 +43,18 @@ public class HapticsController : MonoBehaviour
 
     public void StopVibration()
     {
-        OVRInput.SetControllerVibration (0, 0, OVRInput.Controller.RTouch);
+        OVRInput.SetControllerVibration (0, 0, currentController);
+    }
+
+    public void SetController(string hand)
+    {
+		if(hand == "Left")
+	    {
+		    currentController = OVRInput.Controller.LTouch;
+	    }	
+        else
+        {
+            currentController = OVRInput.Controller.RTouch;
+        }
     }
 }

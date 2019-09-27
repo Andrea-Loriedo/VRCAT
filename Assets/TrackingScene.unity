@@ -159,6 +159,18 @@ MonoBehaviour:
   - rot_y
   - rot_z
   recording: 0
+--- !u!114 &39848722
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 39848718}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3013a87ed1083f1499d6fc03cef10d85, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!135 &39848725
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -6292,10 +6304,50 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114375821934039048, guid: 0a3b6392f04558844bd340e68ced1ff9,
+        type: 3}
+      propertyPath: _participantDataPoints.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114375821934039048, guid: 0a3b6392f04558844bd340e68ced1ff9,
+        type: 3}
+      propertyPath: _participantDataPoints.Array.data[0].displayName
+      value: Height
+      objectReference: {fileID: 0}
+    - target: {fileID: 114375821934039048, guid: 0a3b6392f04558844bd340e68ced1ff9,
+        type: 3}
+      propertyPath: _participantDataPoints.Array.data[0].internalName
+      value: Height
+      objectReference: {fileID: 0}
+    - target: {fileID: 114375821934039048, guid: 0a3b6392f04558844bd340e68ced1ff9,
+        type: 3}
+      propertyPath: _participantDataPoints.Array.data[0].dataType
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114375821934039048, guid: 0a3b6392f04558844bd340e68ced1ff9,
+        type: 3}
+      propertyPath: quickStartMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114375821934039048, guid: 0a3b6392f04558844bd340e68ced1ff9,
+        type: 3}
+      propertyPath: saveDataLocation
+      value: Assets\StreamingAssets
+      objectReference: {fileID: 0}
+    - target: {fileID: 114375821934039048, guid: 0a3b6392f04558844bd340e68ced1ff9,
+        type: 3}
+      propertyPath: experimentSettingsName
+      value: tracking_settings.json
+      objectReference: {fileID: 0}
+    - target: {fileID: 114375821934039048, guid: 0a3b6392f04558844bd340e68ced1ff9,
+        type: 3}
+      propertyPath: settingsSearchPattern
+      value: tracking_*.json
+      objectReference: {fileID: 0}
     - target: {fileID: 114916036141644208, guid: 0a3b6392f04558844bd340e68ced1ff9,
         type: 3}
       propertyPath: onSessionBegin.m_PersistentCalls.m_Calls.Array.size
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 114916036141644208, guid: 0a3b6392f04558844bd340e68ced1ff9,
         type: 3}
@@ -6467,45 +6519,30 @@ PrefabInstance:
       propertyPath: onSessionEnd.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
-    - target: {fileID: 114375821934039048, guid: 0a3b6392f04558844bd340e68ced1ff9,
+    - target: {fileID: 114916036141644208, guid: 0a3b6392f04558844bd340e68ced1ff9,
         type: 3}
-      propertyPath: _participantDataPoints.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114375821934039048, guid: 0a3b6392f04558844bd340e68ced1ff9,
-        type: 3}
-      propertyPath: _participantDataPoints.Array.data[0].displayName
-      value: Height
-      objectReference: {fileID: 0}
-    - target: {fileID: 114375821934039048, guid: 0a3b6392f04558844bd340e68ced1ff9,
-        type: 3}
-      propertyPath: _participantDataPoints.Array.data[0].internalName
-      value: Height
-      objectReference: {fileID: 0}
-    - target: {fileID: 114375821934039048, guid: 0a3b6392f04558844bd340e68ced1ff9,
-        type: 3}
-      propertyPath: _participantDataPoints.Array.data[0].dataType
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114375821934039048, guid: 0a3b6392f04558844bd340e68ced1ff9,
-        type: 3}
-      propertyPath: quickStartMode
+      propertyPath: onSessionBegin.m_PersistentCalls.m_Calls.Array.data[2].m_Mode
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 114375821934039048, guid: 0a3b6392f04558844bd340e68ced1ff9,
+    - target: {fileID: 114916036141644208, guid: 0a3b6392f04558844bd340e68ced1ff9,
         type: 3}
-      propertyPath: saveDataLocation
-      value: Assets\StreamingAssets
+      propertyPath: onSessionBegin.m_PersistentCalls.m_Calls.Array.data[2].m_CallState
+      value: 2
       objectReference: {fileID: 0}
-    - target: {fileID: 114375821934039048, guid: 0a3b6392f04558844bd340e68ced1ff9,
+    - target: {fileID: 114916036141644208, guid: 0a3b6392f04558844bd340e68ced1ff9,
         type: 3}
-      propertyPath: experimentSettingsName
-      value: tracking_settings.json
+      propertyPath: onSessionBegin.m_PersistentCalls.m_Calls.Array.data[2].m_Target
+      value: 
+      objectReference: {fileID: 2027002881}
+    - target: {fileID: 114916036141644208, guid: 0a3b6392f04558844bd340e68ced1ff9,
+        type: 3}
+      propertyPath: onSessionBegin.m_PersistentCalls.m_Calls.Array.data[2].m_MethodName
+      value: CheckForHandSwap
       objectReference: {fileID: 0}
-    - target: {fileID: 114375821934039048, guid: 0a3b6392f04558844bd340e68ced1ff9,
+    - target: {fileID: 114916036141644208, guid: 0a3b6392f04558844bd340e68ced1ff9,
         type: 3}
-      propertyPath: settingsSearchPattern
-      value: tracking_*.json
+      propertyPath: onSessionBegin.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0a3b6392f04558844bd340e68ced1ff9, type: 3}
@@ -21223,6 +21260,8 @@ MonoBehaviour:
   cursor: {fileID: 39848718}
   cursorTransform: {fileID: 39848719}
   leftController: {fileID: 1326733469}
+  controller: {fileID: 39848720}
+  haptics: {fileID: 39848722}
 --- !u!1 &2116652543
 GameObject:
   m_ObjectHideFlags: 0

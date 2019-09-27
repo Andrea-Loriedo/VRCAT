@@ -149,11 +149,10 @@ public class UIController : MonoBehaviour {
 	{
 		return new FormData()
 		{
-			// ppid = completedForm["ppid"].ToString(),
 			ppid = ppListSelect.Finish(),
 			age = inputFieldPrefab.age,
 			gender = dropdownPrefab.selectedGender,
-			// handedness = dropdownPrefab.selectedHand
+			handedness = dropdownPrefab.selectedHand
 		};
 	}
 

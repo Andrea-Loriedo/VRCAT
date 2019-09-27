@@ -70,13 +70,14 @@ public class SceneLoader : MonoBehaviour
             { "Height", height },
             { "Age", formSelections.age },
             { "Gender", formSelections.gender },
-            // { "Writing hand", formSelections.handedness }
+            { "Writing hand", formSelections.handedness }
         };
 
         // Update participant data points in participant list
         ppListSelect.UpdateDatapoint(formSelections.ppid, "height", ppDetails["Height"]);
         ppListSelect.UpdateDatapoint(formSelections.ppid, "age", ppDetails["Age"]);
         ppListSelect.UpdateDatapoint(formSelections.ppid, "gender", ppDetails["Gender"]);
+        ppListSelect.UpdateDatapoint(formSelections.ppid, "writing_hand", ppDetails["Writing hand"]);
         ppListSelect.CommitCSV();
 
         foreach (var sceneSelection in selectedScenes)

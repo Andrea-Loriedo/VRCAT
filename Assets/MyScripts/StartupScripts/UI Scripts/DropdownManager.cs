@@ -7,26 +7,26 @@ using UnityEngine.UI;
 public class DropdownManager : MonoBehaviour {
 
 	CustomDropdownController genderDd = new CustomDropdownController();
-	// CustomDropdownController handsDd = new CustomDropdownController();
+	CustomDropdownController handsDd = new CustomDropdownController();
 
 	public Dropdown genderDropdown;
-	// public Dropdown handsDropdown;
+	public Dropdown handsDropdown;
 
 	[HideInInspector]
 	public string selectedGender;
-	// [HideInInspector]
-	// public string selectedHand;
+	[HideInInspector]
+	public string selectedHand;
 
 	List<string> genders = new List<string>() {"Male", "Female"};
-	// List<string> hands = new List<string>() {"Right", "Left"};
+	List<string> hands = new List<string>() {"Right", "Left"};
 
 	void Start () {
 		genderDd.AssignDropdown(genderDropdown);
-		// handsDd.AssignDropdown(handsDropdown);
+		handsDd.AssignDropdown(handsDropdown);
 		genderDd.SetOptions(genders);
-		// handsDd.SetOptions(hands);
+		handsDd.SetOptions(hands);
 		selectedGender = genderDd.GetDefault(genders);
-		// selectedHand = handsDd.GetDefault(hands);
+		selectedHand = handsDd.GetDefault(hands);
 	}
 
 	public void GenderDropdownIndexChanged(int i)
@@ -34,9 +34,9 @@ public class DropdownManager : MonoBehaviour {
 		selectedGender = genderDd.GetContents();
 	}
 
-	// public void HandednessDropdownIndexChanged(int i)
-	// {
-	// 	selectedHand = handsDd.GetContents();
-	// }
+	public void HandednessDropdownIndexChanged(int i)
+	{
+		selectedHand = handsDd.GetContents();
+	}
 }
 

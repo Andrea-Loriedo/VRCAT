@@ -6,6 +6,7 @@ public class CursorController : MonoBehaviour
 {
     // [SerializeField] AimingResultsController results;
     public Transform target;
+
     Vector3 currPos;
     Vector3 prevPos;
 

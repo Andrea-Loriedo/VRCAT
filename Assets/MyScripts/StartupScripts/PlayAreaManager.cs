@@ -5,7 +5,6 @@ using UXF;
 
 public class PlayAreaManager : MonoBehaviour {
     
-	// public HeightMeasurer heightMeasurer;
 	public float refHeight = 1.6f;
 	float workspaceCenterRelativeHeight = 0.9f;
 	string defaultHand = "Right";
@@ -13,6 +12,8 @@ public class PlayAreaManager : MonoBehaviour {
 	public GameObject cursor;
 	public Transform cursorTransform;
 	public Transform leftController;
+	public CursorController controller;
+	public HapticsController haptics;
 	TrailRenderer cursorTrail;
 
 	void Start ()
@@ -58,7 +59,7 @@ public class PlayAreaManager : MonoBehaviour {
 
 		try
 		{
-		cursorTrail.enabled = true;
+			cursorTrail.enabled = true;
 		}
 	    catch (UnityEngine.MissingComponentException)
 		{
@@ -86,11 +87,14 @@ public class PlayAreaManager : MonoBehaviour {
 	    {
 		    SwapHands(leftController);
 	    }	
+
+		haptics.SetController(hand);
 	}
 
 	void SwapHands(Transform newParent)
     {
         // Sets "newParent" as the new parent of the cursor GameObject. Makes the cursor keep its local orientation rather than its global orientation.
-        cursorTransform.transform.SetParent(newParent, false);
+        // cursorTransform.transform.SetParent(newParent, false);
+		controller.target = newParent;
     }
 }
