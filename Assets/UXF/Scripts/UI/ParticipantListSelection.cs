@@ -8,8 +8,6 @@ using System.Linq;
 using UnityEngine.Events;
 using System;
 
-// EDITED BY ANDREA
-
 namespace UXF
 {
     public class ParticipantListSelection : MonoBehaviour
@@ -25,7 +23,6 @@ namespace UXF
         public FillableFormController form;
         public PopupController popupController;
         public Button startButton;
-        public UIController customForm;
 
         string ppListLocKey = "ParticipantListLocation";
 
@@ -193,7 +190,6 @@ namespace UXF
         {
             // get completed information form
             var completedForm = form.GetCompletedForm();
-            var completeCustomForm = customForm.GetCustomForm();
 
             if (completedForm == null)
                 throw new Exception("Form not completed correctly!");
@@ -227,9 +223,6 @@ namespace UXF
 
             // update row in table
             foreach (var keyValuePair in completedForm)
-                row[keyValuePair.Key] = keyValuePair.Value;  
-
-            foreach (var keyValuePair in completeCustomForm)
                 row[keyValuePair.Key] = keyValuePair.Value;  
 
             // write pplist

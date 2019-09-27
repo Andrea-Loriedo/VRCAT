@@ -73,10 +73,13 @@ public class SceneLoader : MonoBehaviour
             // { "Writing hand", formSelections.handedness }
         };
 
-        ppListSelect.UpdateDatapoint(formSelections.ppid, "height", height);
+        // Update participant data points in participant list
+        ppListSelect.UpdateDatapoint(formSelections.ppid, "height", ppDetails["Height"]);
+        ppListSelect.UpdateDatapoint(formSelections.ppid, "age", ppDetails["Age"]);
+        ppListSelect.UpdateDatapoint(formSelections.ppid, "gender", ppDetails["Gender"]);
         ppListSelect.CommitCSV();
 
-        foreach (var sceneSelection in selectedScenes)
+        foreach (var sceneSelection in selectedScenes)s
         {
             SceneManager.LoadScene(sceneSelection.sceneName, LoadSceneMode.Single);
             finishedScene = false;
