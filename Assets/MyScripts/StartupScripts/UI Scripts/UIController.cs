@@ -11,6 +11,7 @@ public class UIController : MonoBehaviour {
 	public DropdownManager dropdownPrefab;
     public InputFieldManager inputFieldPrefab;
 	public PopupController popupController;
+	public PopupController trialsPopup;
 	public FillableFormController form;
 	public ParticipantListSelection ppListSelect;
 	public Session session;
@@ -172,6 +173,15 @@ public class UIController : MonoBehaviour {
 		taskSelectionMissing.message = string.Format("Please select at least one task before starting the experiment");
 		taskSelectionMissing.onOK = new Action(() => {});
 		popupController.DisplayPopup(taskSelectionMissing);
+	}
+
+	public void ShowTrialsPopup()
+	{
+		Popup numberOfTrials = new Popup();
+		numberOfTrials.messageType = MessageType.Attention;
+		numberOfTrials.message = string.Format("Trials per block");
+		numberOfTrials.onOK = new Action(() => {});
+		trialsPopup.DisplayPopup(numberOfTrials);
 	}
 }
 

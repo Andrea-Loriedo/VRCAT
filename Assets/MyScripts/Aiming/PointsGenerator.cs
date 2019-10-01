@@ -6,7 +6,8 @@ using UXF;
 
 public class PointsGenerator : MonoBehaviour {
 
-    public FileIOManager fiom;
+    [SerializeField] FileIOManager fiom;
+    [SerializeField] InputFieldManager inputFieldPrefab;
     Session session;
 
     // pentagram
@@ -61,6 +62,9 @@ public class PointsGenerator : MonoBehaviour {
                 block3Start.x, block3Start.y, block3Start.z
             }
         );
+
+        string trialsPerBlock = inputFieldPrefab.SetTrialsPerBlock();
+        trials = System.Convert.ToInt32(trialsPerBlock);
 
         var pts1 = new List<List<float>>();
         // pentagram 2D pattern 
