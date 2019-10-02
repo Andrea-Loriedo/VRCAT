@@ -63,8 +63,8 @@ public class PointsGenerator : MonoBehaviour {
             }
         );
 
-        string trialsPerBlock = inputFieldPrefab.SetTrialsPerBlock();
-        trials = System.Convert.ToInt32(trialsPerBlock);
+        // Default to 3 trials per block on an empty inputfield
+        trials = string.IsNullOrEmpty(inputFieldPrefab.SetTrialsPerBlock()) ? 3 : int.Parse(inputFieldPrefab.SetTrialsPerBlock());
 
         var pts1 = new List<List<float>>();
         // pentagram 2D pattern 

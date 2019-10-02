@@ -183,6 +183,15 @@ public class UIController : MonoBehaviour {
 		numberOfTrials.onOK = new Action(() => {});
 		trialsPopup.DisplayPopup(numberOfTrials);
 	}
+
+	public void ShowAtLeastOneTrialPopup()
+	{
+		Popup numberOfTrialsMissing = new Popup();
+		numberOfTrialsMissing.messageType = MessageType.Error;
+		numberOfTrialsMissing.message = string.Format("The experiment needs at least one trial per block!");
+		numberOfTrialsMissing.onOK = new Action(() => {});
+		popupController.DisplayPopup(numberOfTrialsMissing);
+	}
 }
 
 public struct FormData

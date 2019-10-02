@@ -2643,6 +2643,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fiom: {fileID: 436359184}
   inputFieldPrefab: {fileID: 70559902}
+  ui: {fileID: 1037779061}
   radius: 0.3
   trials: 3
 --- !u!114 &625258344
@@ -4245,6 +4246,31 @@ PrefabInstance:
     - target: {fileID: 2065054129475800395, guid: 9805d0d7ce0b6f84ebea324bd72acfb9,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 2065054129475800395, guid: 9805d0d7ce0b6f84ebea324bd72acfb9,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2065054129475800395, guid: 9805d0d7ce0b6f84ebea324bd72acfb9,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2065054129475800395, guid: 9805d0d7ce0b6f84ebea324bd72acfb9,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Target
+      value: 
+      objectReference: {fileID: 625258341}
+    - target: {fileID: 2065054129475800395, guid: 9805d0d7ce0b6f84ebea324bd72acfb9,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_MethodName
+      value: GenerateNewPoints
+      objectReference: {fileID: 0}
+    - target: {fileID: 2065054129475800395, guid: 9805d0d7ce0b6f84ebea324bd72acfb9,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     m_RemovedComponents: []
