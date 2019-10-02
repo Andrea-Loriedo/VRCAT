@@ -50,8 +50,11 @@ public class AimingTargetController : MonoBehaviour
 
     void Update()
     {
-        CheckTargetStatus();
-        feedback.ShowFeedback(status);
+        if(experiment.aimingSettings.showFeedback)
+        {
+            CheckTargetStatus();
+            feedback.ShowFeedback(status);
+        }
     }
 
     public void TurnOn()
@@ -85,6 +88,7 @@ public class AimingTargetController : MonoBehaviour
     {
         experiment.aimingSettings.speed = session.settings.GetFloat("target_speed");
         experiment.aimingSettings.size = session.settings.GetFloat("target_size");
+        experiment.aimingSettings.showFeedback = (bool) session.settings["show_feedback"];
 
         speed = experiment.aimingSettings.speed;
         size = experiment.aimingSettings.size;

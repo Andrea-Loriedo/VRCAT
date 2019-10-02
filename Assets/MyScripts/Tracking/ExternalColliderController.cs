@@ -5,6 +5,7 @@ using UnityEngine;
 public class ExternalColliderController : MonoBehaviour
 {
     [SerializeField] TrackingFeedbackController feedback;
+    [SerializeField] TrackingExperimentManager experiment;
 
     Status status;
 
@@ -23,8 +24,11 @@ public class ExternalColliderController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        CheckDistance();
-        feedback.ShowFeedback(status);
+        if(experiment.trackingSettings.showFeedback)
+        {
+            CheckDistance();
+            feedback.ShowFeedback(status);
+        }
     }
 
     void OnTriggerEnter()

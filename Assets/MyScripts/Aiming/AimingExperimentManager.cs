@@ -58,6 +58,7 @@ namespace UXFExamples
 
 public struct AimingBlockSettings
 {
+    public bool showFeedback;
     public int trialsPerBlock;
     public float speed;
     public float size;

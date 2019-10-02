@@ -32,6 +32,7 @@ public class TrackingExperimentManager : MonoBehaviour
         trackingSettings.input.q = (float) session.currentTrial.settings["q"]; 
         trackingSettings.input.p = (float) session.currentTrial.settings["p"]; 
         trackingSettings.input.r = (float) session.currentTrial.settings["r"]; 
+        trackingSettings.showFeedback = (bool) session.settings["show_feedback"];
         trajectory.ApplyBlockSettings(trackingSettings);
     }
 
@@ -52,6 +53,6 @@ public struct TrackingBlockSettings
     };
 
     public float speed;
-    public bool showTrajectory, thirdDimension;
+    public bool showTrajectory, thirdDimension, showFeedback;
     public TrajectoryInput input;
 }

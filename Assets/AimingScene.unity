@@ -5214,6 +5214,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fiom: {fileID: 931648259}
+  inputFieldPrefab: {fileID: 0}
   radius: 0.3
   trials: 10
 --- !u!114 &393784333
@@ -21132,6 +21133,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   session: {fileID: 931648258}
   feedbackText: {fileID: 990087679}
+  experiment: {fileID: 393784329}
 --- !u!114 &990087679 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5941388377326481939, guid: 4c8ae17c2a99b824296489b3881e3874,

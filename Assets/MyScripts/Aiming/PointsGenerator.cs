@@ -16,6 +16,7 @@ public class PointsGenerator : MonoBehaviour {
     float _angle = 90;
     float speed = 1f;
     float size = 1f; 
+    bool feedback = true;
     public float radius = 0.3f;
     public int trials;
 
@@ -112,6 +113,7 @@ public class PointsGenerator : MonoBehaviour {
         // add points for each block to dictionary
         dict.Add("target_speed", speed);
         dict.Add("target_size", size);
+        dict.Add("show_feedback", feedback);
         dict.Add("starting_points", startPts);
         dict.Add("block1_points", pts1);
         dict.Add("block2_points", pts2);

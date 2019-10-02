@@ -9,7 +9,11 @@ public class TrackingSessionGenerator : MonoBehaviour
 { 
     public void GenerateExperiment(Session session)
     {
+        var generalSettings = new Dictionary<string, object>();
+
         int numTrials = session.settings.GetInt("trials_per_block");
+
+        generalSettings.Add("show_feedback", session.settings.GetBool("show_feedback"));
 
         //  Retrieve settings for each block from .json file
         Dictionary<string, object> Block1Settings = (Dictionary<string, object>)session.settings["block_1_settings"];
@@ -26,14 +30,14 @@ public class TrackingSessionGenerator : MonoBehaviour
         Block block5 = session.CreateBlock(numTrials);
 
         // Assign the relevant settingsto each block
-        AssignBlockSettings(Block1Settings, block1);
-        AssignBlockSettings(Block2Settings, block2);
-        AssignBlockSettings(Block3Settings, block3);
-        AssignBlockSettings(Block4Settings, block4);
-        AssignBlockSettings(Block5Settings, block5);
+        AssignBlockSettings(generalSettings, Block1Settings, block1);
+        AssignBlockSettings(generalSettings, Block2Settings, block2);
+        AssignBlockSettings(generalSettings, Block3Settings, block3);
+        AssignBlockSettings(generalSettings, Block4Settings, block4);
+        AssignBlockSettings(generalSettings, Block5Settings, block5);
     }
 
-    void AssignBlockSettings(Dictionary<string, object> settings, Block block)
+    void AssignBlockSettings(Dictionary<string, object> generalSettings, Dictionary<string, object> settings, Block block)
     {
         float speed = System.Convert.ToSingle(settings["speed"]);
         float A = System.Convert.ToSingle(settings["A"]);
@@ -44,6 +48,7 @@ public class TrackingSessionGenerator : MonoBehaviour
         float r = Convert.ToSingle(settings["r"]);
         bool showTrajectory = (bool) settings["show_trajectory"];
         bool third_dimension = (bool) settings["3D_Mode"];
+        bool feedback = (bool) generalSettings["show_feedback"];
     
         block.settings["speed"] = speed;
         block.settings["A"] = A;
@@ -54,5 +59,6 @@ public class TrackingSessionGenerator : MonoBehaviour
         block.settings["r"] = r;
         block.settings["show_trajectory"] = showTrajectory;
         block.settings["3D_Mode"] = third_dimension;
+        block.settings["show_feedback"] = feedback;
 	}
 }

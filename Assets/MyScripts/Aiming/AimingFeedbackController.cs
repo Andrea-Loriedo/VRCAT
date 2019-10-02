@@ -2,12 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UXF;
+using UXFExamples;
 
 public class AimingFeedbackController : MonoBehaviour
 {
 
     [SerializeField] UXF.Session session;
     [SerializeField] Text feedbackText;
+    [SerializeField] AimingExperimentManager experiment;
 
     void Awake()
     {
@@ -16,15 +19,15 @@ public class AimingFeedbackController : MonoBehaviour
 
     public void ShowFeedback(TargetStatus status)
     {
-       switch(status)
-       {
-           case TargetStatus.Miss:
-           feedbackText.text = "Catch the sphere";
-           break;
-           case TargetStatus.Hit:
-           feedbackText.text = "Well done!";
-           break;
-       }
+        switch(status)
+        {
+            case TargetStatus.Miss:
+            feedbackText.text = "Catch the sphere";
+            break;
+            case TargetStatus.Hit:
+            feedbackText.text = "Well done!";
+            break;
+        }
     }
 
     public void Clear()
