@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class CursorController : MonoBehaviour
 {
@@ -10,8 +11,13 @@ public class CursorController : MonoBehaviour
     Vector3 currPos;
     Vector3 prevPos;
 
+    Scene currentScene;
+	string sceneName;
+
     void Start()
     {
+        currentScene = SceneManager.GetActiveScene();
+		sceneName = currentScene.name;
         prevPos = transform.position;
     }
 
@@ -23,7 +29,10 @@ public class CursorController : MonoBehaviour
 
     void Update()
     {
-        Vector3 newPos = target.position;
-        transform.position = newPos;        
+        if ((sceneName != "InterceptiveTimingScene"))
+        {
+            Vector3 newPos = target.position;
+            transform.position = newPos;
+        }        
     }
 }
