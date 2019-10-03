@@ -14,11 +14,11 @@ public class PointsGenerator : MonoBehaviour {
     float _penta_x;
     float _penta_y;
     float _angle = 90;
-    float speed = 1f;
+    float speed = 1.3f;
     float size = 1f; 
     bool feedback = true;
     bool stats = true;
-    public float radius = 0.3f;
+    public float radius = 0.4f;
     public int trials;
 
     // convert from polar to cartesian coordinates

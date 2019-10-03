@@ -32,6 +32,7 @@ public class TrackingExperimentManager : MonoBehaviour
         trackingSettings.input.q = (float) session.currentTrial.settings["q"]; 
         trackingSettings.input.p = (float) session.currentTrial.settings["p"]; 
         trackingSettings.input.r = (float) session.currentTrial.settings["r"]; 
+        trackingSettings.thirdDimension = (bool) session.currentTrial.settings["3D_Mode"];
         trackingSettings.showFeedback = (bool) session.settings["show_feedback"];
         trajectory.ApplyBlockSettings(trackingSettings);
     }

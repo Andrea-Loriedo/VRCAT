@@ -9,7 +9,7 @@ public class TrajectoryController : MonoBehaviour
     LineRenderer lineRenderer;
 
     // Booleans
-    bool trajectory3D = false;
+    bool trajectory3D;
 
     // Constants
     static float twoPI = Mathf.PI * 2f;
