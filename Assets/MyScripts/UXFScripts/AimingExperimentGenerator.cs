@@ -12,6 +12,7 @@ public class AimingExperimentGenerator : MonoBehaviour
         settings.Add("target_speed", session.settings.GetFloat("target_speed"));
         settings.Add("target_size", session.settings.GetFloat("target_size"));
         settings.Add("show_feedback", session.settings.GetBool("show_feedback"));
+        settings.Add("show_stats", session.settings.GetBool("show_stats"));
 
         List<object> startingPoints = (List<object>)session.settings["starting_points"];
         List<object> pointsBlock1 = (List<object>)session.settings["block1_points"];
@@ -78,10 +79,12 @@ public class AimingExperimentGenerator : MonoBehaviour
             float speed = System.Convert.ToSingle(settings["target_speed"]);
             float size = System.Convert.ToSingle(settings["target_size"]);
             bool feedback = (bool) settings["show_feedback"];
+            bool stats = (bool) settings["show_stats"];
         
             block.settings["target_speed"] = speed;
             block.settings["target_size"] = size;
             block.settings["show_feedback"] = feedback;
+            block.settings["show_stats"] = stats;
 	    }
 
 }
