@@ -92,7 +92,7 @@ public class TrackingTargetController : MonoBehaviour
         {
             case "red":
                 foreach (ParticleSystem ps in orb) {
-                    ps.startColor = new Color(255, 0, 5, 255);;
+                    ps.startColor = new Color(255, 0, 5, 255);
                 }
                 break;
 

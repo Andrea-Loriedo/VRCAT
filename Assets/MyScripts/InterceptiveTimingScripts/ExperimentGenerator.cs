@@ -1,6 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UXF;
+using UXFExamples;
+using UnityEngine.Events;
 
 public class ExperimentGenerator : MonoBehaviour
 {
@@ -80,4 +83,14 @@ public class ExperimentGenerator : MonoBehaviour
         }
     }
 
+    public void EndBehaviour(Trial endedTrial)
+    {
+        Session session = FindObjectOfType<Session>();
+
+        if (endedTrial == session.lastTrial)
+        {
+            // end session if the last trial has just ended
+            session.End();
+        }
+    }
 }
