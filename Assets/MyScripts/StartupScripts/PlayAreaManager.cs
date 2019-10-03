@@ -137,4 +137,9 @@ public class PlayAreaManager : MonoBehaviour {
 		}
 
     }
+
+	public void TurnOff()
+	{
+		gameObject.SetActive(false);
+	}
 }
