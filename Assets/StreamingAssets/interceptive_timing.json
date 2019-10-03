@@ -1,0 +1,19 @@
+{
+    "fixed_randomisation": false,
+    "random_seed": 12345,
+    "repeats": 3,
+    "speeds": [0.5, 0.75, 1.0],
+    "heights": [0.05],
+    "widths": [0.03, 0.06, 0.09],
+    "positions": [0.0],
+    "prelaunch_duration_min": 0.5,
+    "prelaunch_duration_max": 0.8,
+    "target_movement_duration": 0.4,
+    "hold_duration": 0.4,
+    "timeout_duration": 0.6,
+    "feedback_time_short": 0.8,
+    "feedback_time_long": 4.0,
+    "post_intercept_buffer_duration": 0.2,
+    "timeout_message": "You moved too early! Perform a single fast movement.",
+    "show_stats": true
+}

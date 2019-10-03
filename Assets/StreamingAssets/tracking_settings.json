@@ -1,0 +1,75 @@
+{
+    "trials_per_block": 1,
+
+    "show_feedback": true,
+
+    "show_stats": true,
+
+    "design_a_2D_Trajectory": "https://www.desmos.com/calculator/w52gw1ycca",
+    "design_a_3D_Trajectory": "https://www.geogebra.org/3d/bajwcsth",
+
+    "block_1_settings":
+    {
+        "speed": 1,
+        "A": 0.3,
+        "B": 0.15,
+        "C": 0,
+        "q": 1,
+        "p": 2,
+        "r": 0,
+        "show_trajectory": true,
+        "3D_Mode": false
+    },
+
+    "block_2_settings":
+    {
+        "speed": 1,
+        "A": 0.5,
+        "B": 0.1,
+        "C": 0,
+        "q": 1,
+        "p": 2,
+        "r": 0,
+        "show_trajectory": true,
+        "3D_Mode": false
+    },
+
+    "block_3_settings": 
+    {
+        "speed": 1.2,
+        "A": 0.3,
+        "B": 0.3,
+        "C": 0.1,
+        "q": 1,
+        "p": 2,
+        "r": 8,
+        "show_trajectory": true,
+        "3D_Mode": true
+    },
+
+    "block_4_settings":
+    {
+        "speed": 1,
+        "A": 0.5,
+        "B": 0.1,
+        "C": 0,
+        "q": 1,
+        "p": 2,
+        "r": 0,
+        "show_trajectory": false,
+        "3D_Mode": false
+    },
+
+    "block_5_settings":
+    {
+        "speed": 0.5,
+        "A": 0.5,
+        "B": 0.1,
+        "C": 0,
+        "q": 1,
+        "p": 4,
+        "r": 0,
+        "show_trajectory": true,
+        "3D_Mode": false
+    }
+}
