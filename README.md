@@ -1,7 +1,7 @@
  # VRCAT (VR Cognitive Assessment Tool)
 
 <p>
-  <img align="right" width="200" height="200" src="Media/VRCATlogo.png">
+  <img align="right" width="150" height="150" src="Media/VRCATlogo.png">
 </p>
 
 A tool to easily run and manage VR sensorimotor experiments, powered by Unity. Designed and developed over two consecutive summers at the [Immersive Cognition Laboratory](https://github.com/immersivecognition) (ICON) in Leeds School of Psychology.
@@ -19,7 +19,7 @@ Inspired by CKAT, VRCAT was commissioned by  [ICON](https://github.com/immersive
 The UI shown below enables a researcher to retrieve/create a participant list (stored as a `.csv` file), select or register a new participant with a unique ID, and finally to tick the experiments that they want to run. Components in the UI can be customised by editing the relative `GameObject` components, making it easy to add new tasks to the battery.
 
 <p align ="center">
-  <img width="200" src="Media/VRCATUI.png">
+  <img width="200" src="Media/VRCATUI.PNG">
 </p>
 
 Settings profiles stored as `.json` files can be loaded and tweaked with just a few clicks. Task customization is paramount, since there isn't a "one-size-fits-all" way of conducting FMS experiments. The possibility to alter parameters such as the number of experimental trials, the appearance of some stimuli or the speed of a target without having to change any code makes it trivial for researchers to quickly adapt their experiments to their participant's needs.
@@ -27,9 +27,8 @@ Settings profiles stored as `.json` files can be loaded and tweaked with just a 
 The scale of the "workspace" where tasks take place is also automatically adjusted at startup thanks to the head alignment system shown below.
 
 <p align="center">
-  <img width="400" src="Media/HeadAlign.png">
-<p/>
-
+  <img width="600" src="Media/HeadAlign.png">
+  
 ## The Tasks 📋
 Once the participant data points have been input, the settings have been loaded and the experiments have been selected, the `SceneLoader` C# class triggers the scene for each task the experimenter wishes to run in sequence. 
 
@@ -62,7 +61,7 @@ The original CKAT featured a _Tracking_ task where the participant had to closel
 Trajectories are generated from the following set of equations:
 
 <p align="center">
-  <img width="600" src="Media/PathEquations.png">
+  <img width="600" src="Media/PathEquations.PNG">
 <p/>
 
 The path's complexity complexity can be easily tweaked by changing the equation parameters from the relative settings `.json` file.
@@ -70,7 +69,7 @@ The path's complexity complexity can be easily tweaked by changing the equation 
 
 Settings Profile             |  VR Task
 :-------------------------:|:-------------------------:
-<img width="525" src="Media/TrackingSettings.png"> | <img width="600" src="Media/TrackingVRCAT.png">
+<img width="525" src="Media/TrackingSettings.PNG"> | <img width="600" src="Media/TrackingVRCAT.png">
 
 Computations are performed online thanks to the use of `Coroutines`: the mean distance between the participant's hand and the target is computed at the end of each trial and results are updated accordingly.
 
@@ -92,8 +91,7 @@ is a package for developing gamified experiments in Unity. Its integration into 
 The figure below shows the events that are run sequentially throughout a UXF `Session`.
 
 <p align="center">
-  <img width="1000" src="Media/UXFSession.png">
-<p/>
+  <img width="1000" src="Media/UXFSession.PNG">
 
 ## Data Output 📈
 Continuous and discrete data is collected throughout each session thanks to the threaded `.csv` handler system within UXF. For example, session results for an instance of the _Tracking_ task  will be presented as shown below:
