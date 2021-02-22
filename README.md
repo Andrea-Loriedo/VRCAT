@@ -41,7 +41,7 @@ The participant is challenged to reach for a glowing orb as quickly and accurate
 The `PointsGenerator` script was written to enable the experimenter to shuffle the target coordinates, so as to make them unpredictable but not completely random, in order to test each participant under equitable conditions.
 
 <p align="center">
-  <img width="300" src="Media/PointsGenerator.png">
+  <img width="450" src="Media/PointsGenerator.png">
 <p/>
 
 At the time of writing, this task is split into 3 experimental blocks:
@@ -51,7 +51,7 @@ At the time of writing, this task is split into 3 experimental blocks:
 - **Block 3**: The target moves in a randomized 3D pattern within a set radius
 
 <p align="center">
-  <img width="500" src="Media/Aiming.png">
+  <img src="Media/Aiming.png">
 <p/>
 
 ### Tracking 📐
