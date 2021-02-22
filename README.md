@@ -19,7 +19,7 @@ Inspired by CKAT, VRCAT was commissioned by  [ICON](https://github.com/immersive
 The UI shown below enables a researcher to retrieve/create a participant list (stored as a `.csv` file), select or register a new participant with a unique ID, and finally to tick the experiments that they want to run. Components in the UI can be customised by editing the relative `GameObject` components, making it easy to add new tasks to the battery.
 
 <p align ="center">
-  <img width="200" src="Media/VRCATUI.PNG">
+  <img width="400" src="Media/VRCATUI.PNG">
 </p>
 
 Settings profiles stored as `.json` files can be loaded and tweaked with just a few clicks. Task customization is paramount, since there isn't a "one-size-fits-all" way of conducting FMS experiments. The possibility to alter parameters such as the number of experimental trials, the appearance of some stimuli or the speed of a target without having to change any code makes it trivial for researchers to quickly adapt their experiments to their participant's needs.
@@ -41,7 +41,7 @@ The participant is challenged to reach for a glowing orb as quickly and accurate
 The `PointsGenerator` script was written to enable the experimenter to shuffle the target coordinates, so as to make them unpredictable but not completely random, in order to test each participant under equitable conditions.
 
 <p align="center">
-  <img width="300" src="Media/PointsGenerator.png">
+  <img width="300" src="Media/PointsGenerator.PNG">
 <p/>
 
 At the time of writing, this task is split into 3 experimental blocks:
@@ -91,7 +91,7 @@ is a package for developing gamified experiments in Unity. Its integration into 
 The figure below shows the events that are run sequentially throughout a UXF `Session`.
 
 <p align="center">
-  <img width="1000" src="Media/UXFSession.PNG">
+  <img width="1000" src="Media/UXFSession.png">
 
 ## Data Output 📈
 Continuous and discrete data is collected throughout each session thanks to the threaded `.csv` handler system within UXF. For example, session results for an instance of the _Tracking_ task  will be presented as shown below:
