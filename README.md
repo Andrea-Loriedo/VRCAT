@@ -41,7 +41,7 @@ The participant is challenged to reach for a glowing orb as quickly and accurate
 The `PointsGenerator` script was written to enable the experimenter to shuffle the target coordinates, so as to make them unpredictable but not completely random, in order to test each participant under equitable conditions.
 
 <p align="center">
-  <img width="300" src="Media/PointsGenerator.PNG">
+  <img width="300" src="Media/PointsGenerator.png">
 <p/>
 
 At the time of writing, this task is split into 3 experimental blocks:
@@ -69,7 +69,7 @@ The path's complexity complexity can be easily tweaked by changing the equation 
 
 Settings Profile             |  VR Task
 :-------------------------:|:-------------------------:
-<img width="525" src="Media/TrackingSettings.PNG"> | <img width="600" src="Media/TrackingVRCAT.png">
+<img width="300" src="Media/TrackingSettings.PNG"> | <img width="345" src="Media/TrackingVRCAT.png">
 
 Computations are performed online thanks to the use of `Coroutines`: the mean distance between the participant's hand and the target is computed at the end of each trial and results are updated accordingly.
 
